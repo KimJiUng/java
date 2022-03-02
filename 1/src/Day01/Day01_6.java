@@ -30,10 +30,6 @@ public class Day01_6 { // c s
 		
 		
 		
-		
-		
-		
-		
 	} // m e
 	
 	
