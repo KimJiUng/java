@@ -242,22 +242,23 @@ public class Day03_6 { // c s
 		
 		for(int i = 1; i<=line10; i++) {
 			// 1. 공백1
-			for(int b = 1; b<=(line10-i)/2+1; b++) {
+			if(i<line10/2) {
+				for(int b = 1; b<=(line10-i); b++) {
 				System.out.print(" ");
-			}
+				}
 			// 2. 별1
-			for(int s = 1; s<=(i*2-1)/2+1; s++) {
+				for(int s = 1; s<=(i*2-1); s++) {
 				System.out.print("*");
+				}
 			}
-			// 3. 공백2
-			for(int b = 1; b<=(line10-i)/2+1; b++) {
-				System.out.print(" ");
+			else {
+				for( int b = 1; b<=i-1; b++) {
+					System.out.print(" ");
+				}
+				for(int s = 1; s<=line10*2-i*2+1; s++) {
+					System.out.print("*");
+				}
 			}
-			// 4. 별2
-			for(int s = 1; s<=(i*2-1)/2+1; s++) {
-				System.out.print("*");
-			}
-			
 			// 5. 줄바꿈
 			System.out.println();
 		}
