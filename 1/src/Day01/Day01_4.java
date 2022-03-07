@@ -28,7 +28,7 @@ public class Day01_4 { // c s
 		System.out.println("\t\t[[출석부]]");
 		System.out.println("-------------------------------------");
 		System.out.println("이름\t1교시\t2교시\t3교시\t비고");
-		//System.out.println( 이름 +"\t"+ 교시1 +"\t"+교시2+"\t"+교시3); // 위에서 선언된 이름은 "" 문자처리 x
+		System.out.println( 이름 +"\t"+ 교시1 +"\t"+교시2+"\t"+교시3); // 위에서 선언된 이름은 "" 문자처리 x
 		System.out.printf("%s\t%s\t%s\t%s\t%s\n" , 이름, 교시1, 교시2, 교시3, "");
 		System.out.println("-------------------------------------");
 		

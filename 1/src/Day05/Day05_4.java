@@ -34,9 +34,10 @@ public class Day05_4 { // c s
 		
 		//전역변수
 		Scanner scanner = new Scanner(System.in);
-		String[][] memberlist = new String[100][2]; // 회원 아이디, 비밀번호
+		String[][] memberlist = new String[2][2]; // 회원 아이디, 비밀번호
 		String[][] book = new String[100][3]; // 도서명, 대여여부, 대여인
-		
+		memberlist[0][0] = "admin";
+		memberlist[0][1] = "1234";
 	
 		//초기메뉴
 		while(true) { // 무한루프 [종료조건 : x]
@@ -76,7 +77,7 @@ public class Day05_4 { // c s
 ///////////////////////////////////////////////////////관리자 로그인 성공시 메뉴/////////////////////////////////////////////////////////
 						while(true) {
 							System.out.println("------------------관리자 메뉴---------------");
-							System.out.println("1. 도서등록 2. 도서목록 3.로그아웃"); int admin = scanner.nextInt();
+							System.out.println("1. 도서등록 2. 도서목록 3.로그아웃 4.도서대여 5.도서검색 6. 도서반납"); int admin = scanner.nextInt();
 							
 							if(admin==1) { // 도서등록
 								System.out.println("등록할 도서명 입력 : "); String book3 = scanner.next();
@@ -119,8 +120,64 @@ public class Day05_4 { // c s
 								break;
 							} // else if 로그아웃 end
 							
+							else if(admin==4) {
+								System.out.println("------------------도서 대여----------------");
+								System.out.println("대여할 도서명 : "); String borrow = scanner.next();
+								for(int j=0; j<book.length; j++) {
+									if(book[j][0].equals(borrow) && book[j][0]!=null && book[j][1].equals("대여가능")) {
+										System.out.println("알림)) 대여 가능한 책입니다.");
+										System.out.println("1.대여 2.취소"); int select_3 = scanner.nextInt();
+										if(select_3==1) {
+											System.out.println("알림)) 대여가 완료되었습니다.");
+											book[j][1] = "대여불가능"; book[j][2]=id;
+											break;
+										}
+										if(select_3==2) {
+											System.out.println("알림)) 이전 화면으로 돌아갑니다.");
+											break;
+										}
+									}
+									else if(book[j][0].equals(borrow) && book[j][0]!=null && book[j][1].equals("대여불가능")) {
+										System.out.println("알림)) 이미 대여된 책입니다.");
+										break;
+									}
+
+									
+								}
+							}
+							else if(admin==5) {
+								System.out.println("----------------------도서 검색-------------------");
+								System.out.println("도서명 검색 : "); String bookname = scanner.next();
+								for(int j=0; j<book.length; j++) {
+									
+									if(book[j][0]!=null && book[j][0].equals(bookname)) {
+										System.out.println("검색 결과 : "+bookname+"\t"+book[j][1]);
+									}
+								}
+							
+							}
+							
+							else if(admin==6) {
+								System.out.println("----------------------도서 반납-------------------");
+								System.out.println("반납 가능한 도서 목록");
+								for(int j=0; j<book.length; j++) {
+									if(book[j][2]!=null) {
+										if(book[j][2].equals(id)) {
+											System.out.println(book[j][0]);
+											System.out.println("반납할 도서명 입력 : "); String book_2 = scanner.next();
+											if(book[j][0].equals(book_2)) {
+												System.out.println("알림)) 반납이 완료되었습니다.");
+												book[j][1] = "대여가능"; book[j][2] = null;
+												break;
+											}
+											else System.out.println("알림)) 잘못된 입력입니다.");
+										}
+									}
+								}
+							}
+							
 						} // while 관리자메뉴 end						
-///////////////////////////////////////////////////////관리자 로그인 성공시 메뉴/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////관리자 로그인 성공시 메뉴 end/////////////////////////////////////////////////////////
 						
 					}
 					else if(memberlist[i][0]!=null && memberlist[i][0].equals(id) && memberlist[i][1].equals(pw)){
@@ -129,7 +186,7 @@ public class Day05_4 { // c s
 ////////////////////////////////////////////////////////로그인 성공시 메뉴////////////////////////////////////////////////////////		
 						
 						while(true) { // 로그인 성공시 [종료 조건 : 로그아웃]
-							for(int j=0; j<book.length; j++) {
+							
 								
 									System.out.println("--------------------메뉴-----------------------");
 									System.out.println("1. 도서검색 2. 도서목록 3. 도서대여 4. 도서반납 5. 로그아웃");
@@ -138,19 +195,15 @@ public class Day05_4 { // c s
 									
 									
 										if(select_2==1) { // 도서검색
-											
-												System.out.println("도서 검색 : "); String bs =scanner.next();
-										for( int bss = 0; bss < book.length; bss++) {
-											if ( book[bss][0]!=null && book[bss][0].equals(bs)) {
-												System.out.print("검색 결과 : "+bs+"\n");
-												if(book[j][1].equals("대여가능")) System.out.print("\t대여 가능\n");
-												else if(book[j][1]!=null) System.out.print("\t대여 불가능\n");												
+											System.out.println("----------------------도서 검색-------------------");
+											System.out.println("도서명 검색 : "); String bookname = scanner.next();
+											for(int j=0; j<book.length; j++) {
 												
+												if(book[j][0]!=null && book[j][0].equals(bookname)) {
+													System.out.println("검색 결과 : "+bookname+"\t"+book[j][1]);
+												}
 											}
-											else System.out.println("알림)) 검색 결과 없음");
-											break;
 										
-										}
 										}		// if 도서검색 종료
 										else if(select_2==2) { // 도서목록
 											if(se==true) {
@@ -165,46 +218,48 @@ public class Day05_4 { // c s
 											} // if end
 										} // else if 도서목록 종료
 										else if(select_2==3) { // 도서대여
-											for(int k=0; k<book.length; k++) {
-												System.out.println("대여할 도서 입력 : "); String borrow = scanner.next();
-											
-												if(book[k][0]!=null && book[k][0].equals(borrow)) {
-													if(book[k][1].equals("대여가능")) {
-														System.out.println("1.대여하기 2.취소");
-														int select_3 = scanner.nextInt();
-														if(select_3==1) {
-															System.out.println("알림)) 대여가 완료되었습니다.");
-															book[j][1] = "대여불가능"; book[j][2] = memberlist[i][0];
-															break;
-											
-														}
-														if(select_3==2) {
-															System.out.println("알림)) 메뉴로 돌아갑니다.");
-															break;
-														}
+											System.out.println("------------------도서 대여----------------");
+											System.out.println("대여할 도서명 : "); String borrow = scanner.next();
+											for(int j=0; j<book.length; j++) {
+												if(book[j][0].equals(borrow) && book[j][0]!=null && book[j][1].equals("대여가능")) {
+													System.out.println("알림)) 대여 가능한 책입니다.");
+													System.out.println("1.대여 2.취소"); int select_3 = scanner.nextInt();
+													if(select_3==1) {
+														System.out.println("알림)) 대여가 완료되었습니다.");
+														book[j][1] = "대여불가능"; book[j][2]=id;
+														break;
 													}
-												else if(book[k][1].equals("대여불가능")) {
-													System.out.println("알림)) 이미 대여된 책입니다.");
+													if(select_3==2) {
+														System.out.println("알림)) 이전 화면으로 돌아갑니다.");
+														break;
+													}
 												}
-											}
-											else System.out.println("검색 결과 없음");
-											break;
-											
-											} // for end 
-										} // else if 도서대여 종료
-										else if(select_2==4) { // 도서반납
-											for(int k=0; k<book.length; k++) {
-												if(memberlist[i][0]!=null && memberlist[i][0].equals(book[j][2])) {
-													System.out.println("반납 가능한 도서 목록");
-													System.out.println(book[j][0]+"\n");
-													System.out.println("반납할 도서 입력 : "); String book_2 = scanner.next();
-													if(book[j][0].equals(book_2)) System.out.println("알림)) 반납이 완료되었습니다.");
-													book[j][1] = "대여가능";
+												else if(book[j][0].equals(borrow) && book[j][0]!=null && book[j][1].equals("대여불가능")) {
+													System.out.println("알림)) 이미 대여된 책입니다.");
 													break;
 												}
-												else System.out.println("알림)) 반납 가능한 도서가 없습니다.");
-												break;
+
+												
 											}
+										} // else if 도서대여 종료
+										else if(select_2==4) { // 도서반납
+											System.out.println("----------------------도서 반납-------------------");
+											System.out.println("반납 가능한 도서 목록");
+											for(int j=0; j<book.length; j++) {
+												if(book[j][2]!=null) {
+													if(book[j][2].equals(id)) {
+														System.out.println(book[j][0]);
+														System.out.println("반납할 도서명 입력 : "); String book_2 = scanner.next();
+														if(book[j][0].equals(book_2)) {
+															System.out.println("알림)) 반납이 완료되었습니다.");
+															book[j][1] = "대여가능"; book[j][2] = null;
+															break;
+														}
+														else System.out.println("알림)) 잘못된 입력입니다.");
+													}
+												}
+											}
+										
 										} // else if 도서반납 종료
 										else if(select_2==5) { // 로그아웃
 										System.out.println("알림)) 로그아웃 되었습니다.");
@@ -213,8 +268,8 @@ public class Day05_4 { // c s
 										} // else if 로그아웃 종료
 								
 							
-							} // for end
-							break;
+							
+							
 						} // while end
 						
 ////////////////////////////////////////////////////////로그인 성공시 메뉴////////////////////////////////////////////////////////
