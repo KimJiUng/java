@@ -25,6 +25,22 @@ public class Book { // c s
 		// 1. 도서검색
 	void 도서검색() {
 		System.out.println("----------------도서검색 페이지------------------");
+		System.out.println("검색할 도서의 ISBN 입력 : "); String ISBN = Day07_5_BookApplication.scanner.next();
+		
+		for(Book temp : Day07_5_BookApplication.books) {
+			if(temp!=null && temp.ISBN.equals(ISBN)) {
+				System.out.println("검색 결과 : ");
+				System.out.println("ISBN\t도서명\t작가\t도서대여여부");
+				if(temp.borrow) {
+					System.out.println(temp.ISBN+"\t"+temp.bookname+"\t"+temp.writer+"\t"+"대여가능");
+					return;	
+				}
+				else System.out.println(temp.ISBN+"\t"+temp.bookname+"\t"+temp.writer+"\t"+"대여중");
+					return;
+			}
+			
+		}
+		
 	}
 		// 2. 도서목록
 	void 도서목록() {
@@ -73,12 +89,11 @@ public class Book { // c s
 		for(Book temp : Day07_5_BookApplication.books) {
 			if(temp!=null && temp.ISBN.equals(ISBN)) { // 입력한 isbn이 있으면
 				if(temp.memberid.equals(loginid)) { // 대여인 id와 현재 로그인된 id가 동일하면
-					if(temp.borrow==false) {
-						System.out.println("알림)) 반납이 완료되었습니다.");
-						temp.borrow=true; temp.memberid=null; // 대여중 -> 대여가능으로 변경 / 대여한 사람의 id를 없음으로 변경[null]
-						return;	
+					if(temp.borrow) {
+						System.out.println("알림)) 현재 도서가 대여중이 아닙니다.");
 					}
-					else System.out.println("알림)) 대여중인 도서가 아닙니다.");
+					else System.out.println("알림)) 도서 반납이 완료되었습니다.");
+					temp.borrow=true; temp.memberid="admin"; // 대여중 -> 대여가능 변경 / 대여한 사람의 id를 없음으로 변경[null]
 					return;
 				}
 				else System.out.println("알림)) 회원님이 대여한 도서가 아닙니다.");
@@ -98,7 +113,7 @@ public class Book { // c s
 			}
 			
 		} // for end
-		System.out.println("알림)) 동일한 도서 ISBN이 없습니다.");
+
 	}
 		// 5. 도서등록
 	void 도서등록() {
@@ -133,6 +148,45 @@ public class Book { // c s
 		// 6. 도서삭제
 	void 도서삭제() {
 		System.out.println("----------------도서삭제 페이지------------------");
+		System.out.println("삭제할 도서 ISBN 입력 : "); String ISBN = Day07_5_BookApplication.scanner.next();
+		
+		
+		int a =0;
+		for(Book temp : Day07_5_BookApplication.books) {
+			if(temp!=null && temp.ISBN.equals(ISBN)) {
+				System.out.println("검색 결과 : ");
+				System.out.println("ISBN\t도서명\t작가");
+				System.out.println(temp.ISBN+"\t"+temp.bookname+"\t"+temp.writer);
+				System.out.println("1.삭제 2.취소"); int ch = Day07_5_BookApplication.scanner.nextInt();
+				
+				if(ch==1) {
+					System.out.println("알림)) 해당 도서가 삭제되었습니다.");
+					Day07_5_BookApplication.books[a]=null;
+					int j = 0;	
+					for(Book temp2 : Day07_5_BookApplication.books) {
+						if(temp2==null) {
+							for(int i=j; i<Day07_5_BookApplication.books.length; i++) {
+								if(i==Day07_5_BookApplication.books.length-1) {
+									Day07_5_BookApplication.books[Day07_5_BookApplication.books.length-1] = null;
+								}
+								else {
+									Day07_5_BookApplication.books[i]=Day07_5_BookApplication.books[i+1];
+								}
+							}
+						}
+						j++;	
+					} // for end
+					return;
+				} // if end
+				else if(ch==2) {
+					System.out.println("알림)) 관리자 메뉴로 돌아갑니다.");
+					return;
+				}
+				else System.out.println("알림)) 알 수 없는 입력입니다.");
+					return;
+			}
+			a++;
+		} // for end
 	}
 	
 } // c e

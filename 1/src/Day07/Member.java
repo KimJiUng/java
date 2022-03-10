@@ -49,7 +49,7 @@ public class Member { // c s
 		for(Member temp : Day07_5_BookApplication.members) {
 			if(temp==null) {
 				if(j==0) { // 첫번째 인덱스[0번 인덱스]가 null => 첫회원
-					bno =1; break;
+					bno = 1; break;
 				}
 				else {
 					bno = Day07_5_BookApplication.members[j-1].mno+1;
