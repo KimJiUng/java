@@ -1,6 +1,6 @@
 package Day07;
 
-public class Member { // c s
+public class Member1 { // c s
 
 	// 1. 필드
 	int mno;
@@ -11,9 +11,9 @@ public class Member { // c s
 	
 	// 2. 생성자
 		// 1. 빈생성자 [기본생성자] : 메소드 호출용 객체 생성시
-	public Member() { }
+	public Member1() { }
 		// 2. 모든 필드를 받는 생성자 : 회원가입용 객체 생성시
-	public Member(int mno, String id, String password, String name, String phone) {
+	public Member1(int mno, String id, String password, String name, String phone) {
 		this.mno = mno;
 		this.id = id;
 		this.password = password;
@@ -29,7 +29,7 @@ public class Member { // c s
 		// 1. 입력받는다 [id, pw, name, phone]
 		System.out.println("아이디 : "); String id = Day07_5_BookApplication.scanner.next();
 		// * 아이디 중복체크
-		for(Member temp : Day07_5_BookApplication.members) {
+		for(Member1 temp : Day07_5_BookApplication.members) {
 			if(temp!=null && temp.id.equals(id)) {
 			// 만약에 공백이 아니면서 배열내 id와 입력받은 id가 동일하면
 				System.out.println("알림)) 현재 사용중인 아이디 입니다.");
@@ -46,7 +46,7 @@ public class Member { // c s
 			// * 회원번호 자동주입 [ 가장 최근에 가입한 회원의 번호 +1 ]
 		int bno = 0;
 		int j = 0;
-		for(Member temp : Day07_5_BookApplication.members) {
+		for(Member1 temp : Day07_5_BookApplication.members) {
 			if(temp==null) {
 				if(j==0) { // 첫번째 인덱스[0번 인덱스]가 null => 첫회원
 					bno = 1; break;
@@ -62,12 +62,12 @@ public class Member { // c s
 		}
 		
 		// 2. 4개변수 -> 객체화 -> 1개
-		Member member = new Member(bno, id, password, name, phone);
+		Member1 member = new Member1(bno, id, password, name, phone);
 			// 모든 필드 받는 생성자로 객체 생성
 		
 		// 3. 배열내 빈 공간을 찾아서 새로운 회원[객체] 넣기
 		int i=0;
-		for(Member temp : Day07_5_BookApplication.members) {
+		for(Member1 temp : Day07_5_BookApplication.members) {
 			if(temp==null) {
 				Day07_5_BookApplication.members[i]=member; // 빈 인덱스에 새로운 회원 대입
 				System.out.println("알림)) 회원님의 회원번호 : "+bno);
@@ -92,7 +92,7 @@ public class Member { // c s
 		System.out.println("아이디 : "); String id = Day07_5_BookApplication.scanner.next();
 		System.out.println("비밀번호 : "); String password = Day07_5_BookApplication.scanner.next();
 		
-		for(Member temp : Day07_5_BookApplication.members) {
+		for(Member1 temp : Day07_5_BookApplication.members) {
 			if(temp!=null && temp.id.equals(id) && temp.password.equals(password)) {
 				return temp.id; // 성공한 id 반환
 			}
@@ -114,7 +114,7 @@ public class Member { // c s
 		System.out.println("이름 : "); String name = Day07_5_BookApplication.scanner.next();
 		System.out.println("연락처 : "); String phone = Day07_5_BookApplication.scanner.next();
 		// 2. 입력받은 값을 배열에 찾기
-		for(Member temp : Day07_5_BookApplication.members) {
+		for(Member1 temp : Day07_5_BookApplication.members) {
 			if(temp!=null && temp.name.equals(name) && temp.phone.equals(phone)) {
 				System.out.println("알림)) 회원님의 아이디 : "+temp.id);
 				return; // 동일한 값을 찾았으면 해당 메소드 종료
@@ -129,7 +129,7 @@ public class Member { // c s
 		System.out.println("아이디 : "); String id = Day07_5_BookApplication.scanner.next();
 		System.out.println("연락처 : "); String phone = Day07_5_BookApplication.scanner.next();
 		
-		for(Member temp : Day07_5_BookApplication.members) {
+		for(Member1 temp : Day07_5_BookApplication.members) {
 			if(temp!=null && temp.id.equals(id) && temp.phone.equals(phone)) {
 				System.out.println("알림)) 회원님의 비밀번호 : "+temp.password);
 				return;

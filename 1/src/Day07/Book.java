@@ -86,6 +86,7 @@ public class Book { // c s
 		System.out.println("----------------도서반납 페이지------------------");
 		도서대여목록(loginid);
 		System.out.println("반납할 도서 ISBN 입력 : "); String ISBN = Day07_5_BookApplication.scanner.next();
+		
 		for(Book temp : Day07_5_BookApplication.books) {
 			if(temp!=null && temp.ISBN.equals(ISBN)) { // 입력한 isbn이 있으면
 				if(temp.memberid.equals(loginid)) { // 대여인 id와 현재 로그인된 id가 동일하면

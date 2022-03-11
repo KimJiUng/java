@@ -31,7 +31,7 @@ public class Day07_5_BookApplication { // c s
 			// static : 프로그램 시작시 메모리 할당 / 프로그램 종료시 메모리 초기화
 				// 프로그램 전반적으로 모든 곳에 사용되는 메모리[변수]
 	static Scanner scanner = new Scanner(System.in); // static : 모든 곳에서 사용 가능
-	static Member[] members = new Member[1000];
+	static Member1[] members = new Member1[1000];
 	static Book[] books = new Book[1000];
 	
 	// 0. 코드를 읽어주는 시작 메소드[스레드]
@@ -54,7 +54,7 @@ public class Day07_5_BookApplication { // c s
 			System.out.println("----------------도서 대여 프로그램----------------");
 			System.out.println("1.회원가입 2.로그인 3.아이디찾기 4.비밀번호찾기");
 			int ch = scanner.nextInt();
-			Member member = new Member();
+			Member1 member = new Member1();
 			
 			if(ch==1) {
 				// 회원가입 메소드 호출
