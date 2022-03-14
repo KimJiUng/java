@@ -3,13 +3,11 @@ package Day08;
 import java.util.Scanner;
 
 public class Day08_5 {
-
+	
 	static Scanner scanner = new Scanner(System.in);
 	static Member[] members = new Member[100];
-	static Bankbook[] bankbooks = new Bankbook[100];
+	static Bankbook[] bankbooks = new Bankbook[100];	
 	static Loan[] loanlist = new Loan[100];
-
-	
 	public static void main(String[] args) {
 		
 		Day08_5 mobilebank = new Day08_5();
@@ -58,7 +56,7 @@ public class Day08_5 {
 			Bankbook bankbook = new Bankbook();
 			System.out.println("------------------회원 메뉴---------------");
 			System.out.println("1.계좌생성 2.계좌목록 3.입금 4.출금 5.이체 6.대출 7.계좌비밀번호찾기 8.로그아웃");
-			int ch = Day08_5.scanner.nextInt();
+			int ch = scanner.nextInt();
 			
 			if(ch==1) {
 				bankbook.bankregistration(loginid);
@@ -67,19 +65,19 @@ public class Day08_5 {
 				bankbook.bankbooklsit(loginid);
 			}
 			else if(ch==3) {
-				bankbook.inmoney();
+				bankbook.inmoney(loginid);
 			}
 			else if(ch==4) {
-				bankbook.outmoney();
+				bankbook.outmoney(loginid);
 			}
 			else if(ch==5) {
-				bankbook.sendmoney();
+				bankbook.sendmoney(loginid);
 			}
 			else if(ch==6) {
 				mobilebank.loanmenu(loginid);
 			}
 			else if(ch==7) {
-				bankbook.findbankpw();
+				bankbook.findbankpw(loginid);
 			}
 			else if(ch==8) {
 				System.out.println("알림)) 로그아웃 되었습니다.");
@@ -92,36 +90,33 @@ public class Day08_5 {
 		
 	} // 일반회원 메뉴 종료
 	//////////////////////////////////////////////////////////////////////////////////////////
-	void loanmenu(String loginid) {
+	void loanmenu(String x) {
 		while(true) {
 			Loan loan = new Loan();
-			System.out.println("------------------대출 메뉴---------------");
-			System.out.println("1.대출 2.대출잔액확인 3.대출상환 4.뒤로가기");
+			System.out.println("------------------회원 메뉴---------------");
+			System.out.println("1.대출상품목록 2.대출확인 3.뒤로가기");
 			int ch = scanner.nextInt();
 			if(ch == 1) {
-				
+				loan.loanlsit(x);
 			}
 			else if(ch == 2) {
-				loan.llist(loginid);
+				loan.myloan(x);
 			}
-			else if(ch == 3) {
-				loan.repay(loginid);
-			}
-			else if(ch ==  4) {
+			else if(ch==3) {
 				System.out.println("알림)) 이전 페이지로 이동합니다");
 				break;
 			}
 			else {
 				System.out.println("알림)) 잘못된 입력입니다.");
 			}
-		} // while end
-	} // 대출메뉴 종료
+		}
+	}
 	
 	////////////////////////////////////////////////////////////////////////////////
 	// 3.관리자 메뉴 메소드
 	void adminmenu(String loginid) {
-		Loan loan = new Loan();
 		while(true) {
+			Loan loan = new Loan();
 			System.out.println("------------------관리자 메뉴---------------");
 			System.out.println("1.대출상품등록 2.대출상품삭제 3.로그아웃");
 			int ch = scanner.nextInt();
@@ -130,7 +125,7 @@ public class Day08_5 {
 				loan.newloan(loginid);
 			}
 			else if(ch==2) {
-				loan.deleteloan();
+				loan.removeloan(loginid);
 			}
 			else if(ch==3) {
 				System.out.println("알림)) 로그아웃 되었습니다.");
@@ -138,6 +133,6 @@ public class Day08_5 {
 			}
 			else System.out.println("알림)) 잘못된 입력입니다.");
 		} // while end
-	} // 관리자 메뉴 종료
+	}
 	
 }
