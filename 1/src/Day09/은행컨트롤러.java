@@ -39,9 +39,9 @@ public class 은행컨트롤러 { // c s
 		} // while end
 		// 2. 객체화[다수의 변수를 하나의 객체로 만들기]
 			은행 temp=null; // 빈 객체 선언
-			if(은행번호 == 1) {temp = new 국민은행(계좌번호,비밀번호, 계좌주, 0);}
-			else if(은행번호==2) {temp = new 신한은행(계좌번호,비밀번호, 계좌주, 0);}
-			else if(은행번호==3) {temp = new 하나은행(계좌번호,비밀번호, 계좌주, 0);}
+			if(은행번호 == 1) {temp = new 국민은행(계좌번호,비밀번호, 계좌주, 0,0);}
+			else if(은행번호==2) {temp = new 신한은행(계좌번호,비밀번호, 계좌주, 0,0);}
+			else if(은행번호==3) {temp = new 하나은행(계좌번호,비밀번호, 계좌주, 0,0);}
 			
 		// 3. 배열에 저장
 		int i = 0; // 인덱스 번호
@@ -148,8 +148,40 @@ public class 은행컨트롤러 { // c s
 		return 내계좌목록; 
 	}
 		// 6. 대출 [U]
-	public boolean 대출() { return false; }
-	
-	
+	public boolean 대출(int 대출액, String 대출계좌, String 비밀번호) {
+		int i=0;
+		for(은행 temp : Day09_6_은행계좌프로그램.계좌리스트) {
+			if(temp!=null && temp.get계좌번호().equals(대출계좌) && temp.get비밀번호().equals(비밀번호)) {
+				Day09_6_은행계좌프로그램.계좌리스트[i].set예금액(temp.get예금액()+대출액);
+				Day09_6_은행계좌프로그램.계좌리스트[i].set대출액(temp.get대출액()+대출액*1.1);
+				
+				return true; // 대출 성공
+			}
+			i++;
+		}
+		return false; // 대출 실패(개인정보 틀림)
+	}
+		// 7. 대출상환
+	public int 대출상환(String 대출계좌, String 비밀번호, int 상환액) {
+		
+		int i=0;
+		for(은행 temp : Day09_6_은행계좌프로그램.계좌리스트) {
+			if(temp!=null && temp.get계좌번호().equals(대출계좌) && temp.get비밀번호().equals(비밀번호)) {
+				
+				if(상환액>temp.get대출액()) {
+					return 1; // 상환하려는 금액이 대출한 금액보다 큰 경우
+				}
+				else {
+					Day09_6_은행계좌프로그램.계좌리스트[i].set예금액(temp.get예금액()-상환액);
+					Day09_6_은행계좌프로그램.계좌리스트[i].set대출액(temp.get대출액()-상환액);
+					return 2; // 상환 완료
+				}
+				
+			}
+			i++;
+		
+		}
+		return 3;
+	}
 	
 } // c e

@@ -2,8 +2,8 @@ package Day09;
 
 public class 신한은행 extends 은행 {
 
-	public 신한은행(String 계좌번호, String 비밀번호, String 계좌주, int 예금액) {
-		super(계좌번호, 비밀번호, 계좌주, 예금액);
+	public 신한은행(String 계좌번호, String 비밀번호, String 계좌주, int 예금액, double 대출액) {
+		super(계좌번호, 비밀번호, 계좌주, 예금액,대출액);
 	}
 
 	

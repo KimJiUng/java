@@ -7,16 +7,17 @@ public class 은행 { // c s
 	private String 비밀번호;		// 비밀번호
 	private String 계좌주; 	// 계좌주
 	private int 예금액;	// 예금액
-	
+	private double 대출액;
 	// 2. 생성자
 		// 1. 빈 생성자
 	public 은행() {}
 		// 2. 모든필드 생성자
-	public 은행(String 계좌번호, String 비밀번호, String 계좌주, int 예금액) {
+	public 은행(String 계좌번호, String 비밀번호, String 계좌주, int 예금액, double 대출액) {
 		this.계좌번호 = 계좌번호;
 		this.비밀번호 = 비밀번호;
 		this.계좌주 = 계좌주;
 		this.예금액 = 예금액;
+		this.대출액 = 대출액;
 	}
 	
 	
@@ -46,6 +47,12 @@ public class 은행 { // c s
 	}
 	public void set예금액(int 예금액) {
 		this.예금액 = 예금액;
+	}
+	public double get대출액() {
+		return 대출액;
+	}
+	public void set대출액(double 대출액) {
+		this.대출액 = 대출액;
 	}
 	
 	

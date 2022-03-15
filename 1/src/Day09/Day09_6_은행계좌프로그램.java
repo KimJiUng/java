@@ -108,13 +108,42 @@ public class Day09_6_은행계좌프로그램 { // c s
 				int i=1;
 				for(은행 temp : 내계좌목록) {
 					if(temp!=null) {
-					System.out.println(i+"번 계좌번호 : "+temp.get계좌번호()+"\t\t예금액 : "+temp.get예금액());
+					System.out.println(i+"번 계좌번호 : "+temp.get계좌번호()+"\t\t예금액 : "+temp.get예금액()+"\t대출액 : "+(int)temp.get대출액());
 					}
 					i++;
 				}
 			}
 			else if(선택==6) {
 				System.out.println("+++ 대출 페이지 +++");
+				System.out.println("1.대출 2.대출상환 3.뒤로가기"); int ch = scanner.nextInt();
+				
+				if(ch==1) {
+					System.out.println("대출받을 계좌 입력 : "); String 대출계좌 = scanner.next();
+					System.out.println("비밀번호 입력 : "); String 비밀번호 = scanner.next();
+					System.out.println("대출받을 금액 입력 : "); int 대출액 = scanner.nextInt();
+ 					boolean result = 컨트롤.대출(대출액,대출계좌,비밀번호);
+ 					if (result) {
+ 						System.out.println("*** 대출 성공 ***");
+ 					}
+ 					else System.out.println("*** 올바른 정보가 아닙니다. ***");
+				}
+				else if(ch==2) {
+					System.out.println("상환할 계좌 입력 : "); String 대출계좌 = scanner.next();
+					System.out.println("비밀번호 입력 : "); String 비밀번호 = scanner.next();
+					System.out.println("상환할 금액 입력 : "); int 상환액 = scanner.nextInt();
+					int result = 컨트롤.대출상환(대출계좌,비밀번호,상환액);
+					
+					if(result==1) {
+						System.out.println("** 잔액 부족 **");
+					}
+					else if(result==2) {
+						System.out.println("*** 상환 완료 ***");
+					}
+					else if(result==3) {
+						System.out.println("*** 올바른 정보가 아닙니다. ***");
+					}
+				}
+				else if(ch==3) {}
 			}
 			else System.out.println("알림)) 알 수 없는 번호입니다.");
 			
