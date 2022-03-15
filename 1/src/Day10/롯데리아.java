@@ -54,9 +54,6 @@ public class 롯데리아 extends 점포 { // c s
 			}
 			System.out.println("알림)) 상품 저장 완료");
 		}
-	@Override
-	public void 장바구니(int ch) {
-		return 1;			
-	}
+	
 
 } // c e
