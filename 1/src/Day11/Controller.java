@@ -32,6 +32,7 @@ public class Controller { // c s
 		if(boardlist.get(ch3).getPw().equals(pw)) {
 			boardlist.get(ch3).setTitle(title);
 			boardlist.get(ch3).setContent(content);
+			boardsave();
 			return true;
 		}
 		else return false;
@@ -148,7 +149,24 @@ public class Controller { // c s
 		}
 	}
 	
-	
+	// 11. 댓글 수정메소드
+		public static boolean replyupdate(int ch4, String pw, String content) {
+			if(replist.get(ch4).getPw().equals(pw)) {
+				replist.get(ch4).setContent(content);
+				replysave();
+				return true;
+			}
+			else return false;
+		}
+		// 12. 댓글 삭제메소드
+		public static boolean replydelete(int ch4, String pw) {
+			if(replist.get(ch4).getPw().equals(pw)) {
+				replist.remove(ch4);
+				replysave();
+				return true;
+			}
+			else return false;
+		}
 	
 	
 	
