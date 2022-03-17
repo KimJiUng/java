@@ -6,7 +6,7 @@ public class 평가문제_3 { // c s
 
 	public static void main(String[] args) { // m s
 		Scanner scanner = new Scanner(System.in);
-		int[][] student = new int[100][5];
+		int[][] student = new int[100][6];
 		String[] names = new String[100];
 		double[] avg = new double[100];
 		
@@ -29,25 +29,29 @@ public class 평가문제_3 { // c s
 							student[i][1] = student[j][1];
 							student[j][1] = temp2;
 
-							int temp3 = student[i][2];
+							temp2 = student[i][2];
 							student[i][2] = student[j][2];
-							student[j][2] = temp3;
+							student[j][2] = temp2;
 
-							int temp4 = student[i][3];
+							temp2 = student[i][3];
 							student[i][3] = student[j][3];
-							student[j][3] = temp4;
+							student[j][3] = temp2;
 
-							int temp5 = student[i][4];
+							temp2 = student[i][4];
 							student[i][4] = student[j][4];
-							student[j][4] = temp5;
+							student[j][4] = temp2;
 
-							double temp6 = avg[i];
+							double temp3 = avg[i];
 							avg[i] = avg[j];
-							avg[j] = temp6;
+							avg[j] = temp3;
 							
-							int temp7 = student[i][0];
+							temp2 = student[i][0];
 							student[i][0] = student[j][0];
-							student[j][0] = temp7;
+							student[j][0] = temp2;
+
+							temp2 = student[i][5];
+							student[i][5] = student[j][5];
+							student[j][5] = temp2;
 						}
 					}
 				}
@@ -55,7 +59,7 @@ public class 평가문제_3 { // c s
 				for(int i=0; i<student.length; i++) {
 					if(student[i][0]!=0) {
 						System.out.printf(" %d\t%s\t%d\t%d\t%d\t%d\t%.2f\t%d \n",
-								student[i][0],names[i],student[i][1],student[i][2],student[i][3],student[i][4],avg[i],i+1 );
+								student[i][0],names[i],student[i][1],student[i][2],student[i][3],student[i][4],avg[i],student[i][5]+1 );
 					}
 					
 				
@@ -84,8 +88,18 @@ public class 평가문제_3 { // c s
 							System.out.println("알림)) 점수 등록이 완료되었습니다.");
 							break;
 						} 
+					} // for end
+					for(int i=0; i<student.length; i++) {
+						student[i][5]=0;
 					}
-				}
+					for(int i=0; i<student.length; i++) {
+						for(int j=0; j<student.length; j++) {
+							if(student[i][4]<student[j][4]) {
+								student[i][5]=student[i][5]+1;
+							}
+						}
+					}
+				} // 점수등록 종료
 				else if(ch==2) {
 					System.out.println("삭제할 학생 번호 입력 : "); int num = scanner.nextInt();
 					boolean delete = false;
