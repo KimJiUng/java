@@ -57,24 +57,20 @@ public class Day12_4 { // c s
 					for(int i=0; i<car.length; i++) {
 						if(car[i]==null) {car[i]=strnum; save=true; break;}	
 					}
-					for(String temp : car) {
-						if(temp!=null ) {
-							if(Integer.parseInt(temp)%2 == 0) {
+					if(save==true) {
+
+							if(Integer.parseInt(strnum)%2 == 0) {
 								for(int i=0; i<even.length; i++) {
-									if(even[i]==null) {
-										even[i]=temp; break;
-									}
+									if(even[i]==null) {even[i]=strnum; break;}
 								}
 							} else {
 								for(int i=0; i<odd.length; i++) {
-									if(odd[i]==null) {
-										odd[i]=temp; break;
-									}
+									if(odd[i]==null) {odd[i]=strnum; break;}
 								}
 							}
-							
-						}
-					} // for end
+										
+					}
+					
 					// 만약에 빈공간이 없으면 만차
 					if(save==false) System.out.println("만차 [주차 불가]");
 				}
