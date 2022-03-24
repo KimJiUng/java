@@ -52,8 +52,9 @@ public class 신고결과받기 {
 						while(true) {
 							System.out.println("신고할 아이디 입력 : "); String rpid = scanner.next();
 							if(rpid.length()>0 && rpid.length()<11) {
-								for(int j=0; j<report.length; j++) {
+								for(int j=0; j<id_list.length; j++) {
 									if(id_list[j]!=null && id_list[j].equals(rpid)) {
+										
 										if(report[j]==null) {
 											report[j]=id+" "+rpid;
 											System.out.println(rpid+"신고가 완료되었습니다.");
