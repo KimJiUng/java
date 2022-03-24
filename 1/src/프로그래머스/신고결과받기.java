@@ -31,6 +31,7 @@ public class 신고결과받기 {
 							}
 							else {
 								id_list[i]=id;
+								System.out.println("회원가입성공");
 								break;
 							}
 						}
@@ -50,24 +51,30 @@ public class 신고결과받기 {
 						idcheck = true;
 						while(true) {
 							System.out.println("신고할 아이디 입력 : "); String rpid = scanner.next();
-							for(int j=0; j<report.length; j++) {
-								if(id_list!=null && id_list[j].equals(rpid)) {
-									if(report[j]==null) {
-										report[j]=id+" "+rpid;
-										System.out.println(rpid+"신고가 완료되었습니다.");
-										rpidcheck=true;
-										break;
-									}
-								
-								} // if end
-								
-							} // for end
+							if(rpid.length()>0 && rpid.length()<11) {
+								for(int j=0; j<report.length; j++) {
+									if(id_list[j]!=null && id_list[j].equals(rpid)) {
+										if(report[j]==null) {
+											report[j]=id+" "+rpid;
+											System.out.println(rpid+"신고가 완료되었습니다.");
+											rpidcheck=true;
+											break;
+										}
+									
+									} // if end
+									
+									
+								} // for end
+							} // if end
+							
+					
 							if(rpidcheck==false) {
 								System.out.println("일치하는 ID가 없습니다.");
 							}
+							break;
 						}
 					}
-				}
+				} // for end
 				if(idcheck==false) {
 					System.out.println("로그인 실패");
 				}
