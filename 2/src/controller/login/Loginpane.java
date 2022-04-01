@@ -3,6 +3,7 @@ package controller.login;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dao.MemberDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ public class Loginpane implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		lblconfirm.setText(""); // 처음 실행시 문구 숨기기
 	}
 	
     @FXML
@@ -42,10 +43,12 @@ public class Loginpane implements Initializable {
     @FXML
     void accfindid(ActionEvent event) {
     	System.out.println("아이디찾기 페이지로 이동");
+    	Login.instance.loadpage("/view/login/findidpane.fxml");
     }
 
     @FXML
     void accfindpassword(ActionEvent event) {
+    	Login.instance.loadpage("/view/login/findpwpane.fxml");
     	System.out.println("비밀번호찾기 페이지로 이동");
     }
 
@@ -57,17 +60,21 @@ public class Loginpane implements Initializable {
 
     @FXML
     void login(ActionEvent event) {
-    	System.out.println(txtid.getText() + "로 아이디가 입력되었습니다.");
-    	System.out.println(txtpassword.getText() + "로 패스워드가 입력되었습니다.");
+    	// 1. 컨트롤[fxid]에 입력된 값 가져오기
     	String id = txtid.getText();
-    	String pw = txtpassword.getText();
-    	if(id.equals("admin") && pw.equals("1234")) {
-    		lblconfirm.setText("관리자 로그인");
-    	}else {
-    		lblconfirm.setText("일반회원 로그인");
+    	String password = txtpassword.getText();
+    	// 2. DB 객체내 메소드 호출
+    	boolean result = MemberDao.memberDao.login(id, password);
+    	// 3. 결과 확인
+    	if(result) {
+    		// 페이지 전환 [다음주]
+    			// * 테스트
+    		lblconfirm.setText("로그인 성공");
     	}
-    		
-    	System.out.println("로그인처리");
+    	else {
+    		lblconfirm.setText("동일한 회원정보가 없습니다.");
+    	}
+    	
     }
 	
 }

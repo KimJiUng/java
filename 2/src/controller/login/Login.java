@@ -27,6 +27,7 @@ public class Login implements Initializable{
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+    	
     	// 1. 동영상 삽입하기
     		// 1. 동영상파일 객체화
     		Media media = new Media(getClass().getResource("/img/login.mp4").toString());
