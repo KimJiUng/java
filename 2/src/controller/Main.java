@@ -11,6 +11,10 @@ import javafx.scene.layout.BorderPane;
 
 public class Main implements Initializable {
 	
+	public static Main instance;
+	
+	public Main() { instance = this; }
+	
     @FXML
     private BorderPane borderpane1;
 
@@ -24,7 +28,7 @@ public class Main implements Initializable {
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource(page)); // 해당 파일 불러오기
 			borderpane1.setCenter(parent); // main.fxml에 존재하는 borderpane1 객체내 center를 해당 파일로 변경
-		} catch(Exception e) {System.out.println("페이지 불러오기 실패 사유 : "+e);}
+		} catch(Exception e) {System.out.println("ㅗ페이지 불러오기 실패 사유 : "+e);}
 		
 	}
 	

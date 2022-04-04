@@ -3,6 +3,7 @@ package controller.login;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import controller.Main;
 import dao.MemberDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class Loginpane implements Initializable {
+
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -67,14 +69,25 @@ public class Loginpane implements Initializable {
     	boolean result = MemberDao.memberDao.login(id, password);
     	// 3. 결과 확인
     	if(result) {
-    		// 페이지 전환 [다음주]
-    			// * 테스트
-    		lblconfirm.setText("로그인 성공");
+    		// 로그인 성공시 성공한 회원정보 저장 [로그아웃시 초기화]
+    		Login.member = MemberDao.memberDao.getMember(id);
+    		System.out.println("i : "+MemberDao.i);
+    		boolean result2 = MemberDao.memberDao.pointplus();
+    		if(result2) {
+    			Login.member = MemberDao.memberDao.getMember(id);
+    			Main.instance.loadpage("/view/home/home.fxml");
+    		}
+    		
+    		
+    		
     	}
     	else {
     		lblconfirm.setText("동일한 회원정보가 없습니다.");
     	}
     	
     }
-	
+    
+
+    
+  
 }

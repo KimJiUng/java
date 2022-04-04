@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+
+<BorderPane fx:id="borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.home.Home">
+   <left>
+      <AnchorPane prefHeight="720.0" prefWidth="240.0" style="-fx-background-color: #f0a15d;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/stagelogo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblloginid" layoutX="16.0" layoutY="168.0" prefHeight="23.0" prefWidth="183.0" text="로그인한 사람의 아이디 출력" />
+            <Label fx:id="lblpoint" layoutX="13.0" layoutY="191.0" prefHeight="25.0" prefWidth="135.0" text="로그인한 사람의 포인트" />
+            <Label fx:id="lbllogout" layoutX="180.0" layoutY="193.0" onMouseClicked="#logout" prefHeight="22.0" prefWidth="64.0" text="로그아웃" />
+            <Label layoutX="16.0" layoutY="234.0" prefHeight="24.0" prefWidth="150.0" text="홈" />
+            <Line endX="136.0" layoutX="109.0" layoutY="258.0" startX="-100.0" strokeWidth="3.0" />
+            <Label layoutX="14.0" layoutY="267.0" prefHeight="15.0" prefWidth="127.0" text="공지사항" />
+            <Label layoutX="12.0" layoutY="310.0" prefHeight="15.0" prefWidth="127.0" text="중고거래" />
+            <Line endX="136.0" layoutX="107.0" layoutY="331.0" startX="-100.0" strokeWidth="3.0" />
+            <Label layoutX="14.0" layoutY="341.0" prefHeight="15.0" prefWidth="56.0" text="남성의류" />
+            <Label layoutX="13.0" layoutY="368.0" prefHeight="15.0" prefWidth="56.0" text="여성의류" />
+            <Label layoutX="78.0" layoutY="341.0" prefHeight="15.0" prefWidth="56.0" text="생활용품" />
+            <Label layoutX="78.0" layoutY="368.0" prefHeight="15.0" prefWidth="56.0" text="가전제품" />
+            <Label layoutX="11.0" layoutY="405.0" prefHeight="15.0" prefWidth="127.0" text="커뮤니티" />
+            <Line endX="136.0" layoutX="106.0" layoutY="425.0" startX="-100.0" strokeWidth="3.0" />
+            <Label layoutX="14.0" layoutY="438.0" prefHeight="15.0" prefWidth="74.0" text="자유게시판" />
+            <Label layoutX="14.0" layoutY="463.0" prefHeight="15.0" prefWidth="64.0" text="정보게시판" />
+            <Label layoutX="13.0" layoutY="492.0" prefHeight="15.0" prefWidth="127.0" text="정보" />
+            <Line endX="136.0" layoutX="109.0" layoutY="512.0" startX="-100.0" strokeWidth="3.0" />
+            <Label layoutX="17.0" layoutY="525.0" prefHeight="15.0" prefWidth="74.0" text="내가쓴글" />
+            <Label fx:id="lblinfo" layoutX="77.0" layoutY="525.0" onMouseClicked="#accinfo" prefHeight="15.0" prefWidth="64.0" text="회원정보" />
+            <Label fx:id="lbldelete" layoutX="76.0" layoutY="546.0" onMouseClicked="#delete" prefHeight="15.0" prefWidth="64.0" text="회원탈퇴" />
+            <Label fx:id="lblmodify" onMouseClicked="#accmodify" layoutX="16.0" layoutY="546.0" prefHeight="15.0" prefWidth="64.0" text="정보수정" />
+            <Label layoutX="13.0" layoutY="588.0" prefHeight="15.0" prefWidth="127.0" text="관리자" />
+            <Line endX="136.0" layoutX="109.0" layoutY="608.0" startX="-100.0" strokeWidth="3.0" />
+            <Label layoutX="17.0" layoutY="621.0" prefHeight="15.0" prefWidth="74.0" text="통계" />
+            <Line endX="136.0" layoutX="109.0" layoutY="666.0" startX="-100.0" strokeWidth="3.0" />
+            <Label layoutX="16.0" layoutY="668.0" prefHeight="21.0" prefWidth="87.0" text="고객 센터" />
+            <Label layoutX="16.0" layoutY="689.0" prefHeight="21.0" prefWidth="87.0" text="전화번호" />
+            <Label layoutX="157.0" layoutY="668.0" prefHeight="21.0" prefWidth="87.0" text="신고하기" />
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

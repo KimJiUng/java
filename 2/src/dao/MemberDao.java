@@ -1,10 +1,16 @@
 package dao;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
+import controller.login.Login;
 import dto.Member;
 
 
@@ -16,7 +22,7 @@ public class MemberDao { // DB 접근객체
 	private ResultSet rs; // 결과물을 조작하는 인터페이스
 	
 	public static MemberDao memberDao = new MemberDao(); // DB 연동 객체;
-	
+	public static ArrayList<String> pointlist = new ArrayList<>();
 	public MemberDao() {
 		try {
 			// DB 연동
@@ -149,6 +155,147 @@ public class MemberDao { // DB 접근객체
 		
 		return null;
 	}
+	
+	// 5. 아이디로 회원정보 호출
+	public Member getMember(String id) {
+		try {
+			// 1. SQL 작성
+			String sql = "select * from member where mid=?";
+			// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			// 3. SQL 실행
+			rs = ps.executeQuery();
+			// 4. SQL 결과
+			if(rs.next()) {
+				// 1. 객체선언
+				Member member = new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+				// rs.next() : 결과내 다음 레코드(줄,가로)
+				// rs.getInt(필드순서번호) : 해당 필드의 자료형이 정수형으로 가져오기
+				// rs.getString(필드순서번호) : 해당 필드의 자료형이 문자열로 가져오기
+				// 2. 반환
+				return member;
+			}
+			
+			
+		} catch(Exception e) {
+			System.out.println("SQL 오류 : "+e);
+		}
+		return null;
+		
+		
+	}
+	// 6. 회원탈퇴 [ 회원번호를 인수로 받아 해당 회원번호의 레코드 삭제 ]
+	public boolean delete(int num) {
+		try {
+			// 1. SQL 작성
+					// 레코드 삭제 : delete from 테이블명 where 조건
+			String sql = "delete from member where mnum=?";
+			// 2. SQL 조작
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, num);
+			// 3. SQL 실행
+			ps.executeUpdate();
+			// 4. SQL 결과
+			return true;
+		} catch(Exception e) {
+			System.out.println("SQL 오류 : "+e);
+		}
+		return false;
+	}
+	// 7. 회원정보수정
+	public boolean modify(String pw, String newpw, String newpwcheck, String newemail, String newaddress) {
+		try {
+						// 수정 : update 테이블명 set 필드명1=수정값1, 필드명2=수정값2 where 조건
+			String sql2 = "update member set mpassword=?,memail=?,maddress=? where mnum=?";
+			ps = con.prepareStatement(sql2);
+			ps.setString(1, newpw);
+			ps.setString(2, newemail);
+			ps.setString(3, newaddress);
+			ps.setInt(4, Login.member.getMnum());
+			ps.executeUpdate();
+			return true;
+
+		} catch(Exception e) {
+			System.out.println("!!!! " + e);
+		}
+		return false;
+	}
+	
+	
+	
+	
+	// 8. 로그인시 포인트+10
+	public boolean pointplus() {
+		try {
+			load();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			
+			String now =Login.member.getMid()+format.format(new Date());
+			System.out.println("now : "+now);
+			String sql = "update member set mpoint=? where mnum=?";
+			ps = con.prepareStatement(sql);
+			boolean p = false;
+			for(int i=0; i<pointlist.size(); i++) {
+				if(pointlist.get(i).equals(now)) {
+					p=true;
+				}
+			}
+			if(p==true) {
+				System.out.println("포인트미지급");
+				ps.setInt(1, Login.member.getMpoint());
+			}else {
+				System.out.println("포인트지급");
+				ps.setInt(1, (Login.member.getMpoint()+10));
+				i = Login.member.getMid()+format.format(new Date());
+				save();
+			}
+			ps.setInt(2, Login.member.getMnum());
+			ps.executeUpdate();
+			
+			
+			return true;
+		} catch(Exception e) {
+			System.out.println("sql 오류 : "+ e);
+		}
+		return false;
+	}
+	
+	public static String i;
+	
+	// 파일 저장
+	public static void save() {
+		
+		try {
+			FileOutputStream outputStream = new FileOutputStream("D:/java/포인트.txt", true);
+			String a = i+"\n";
+			outputStream.write(a.getBytes());
+			
+		}catch(Exception e) {
+			System.out.println("알림)) 파일 저장 실패(관리자에게 문의)");
+		}
+	}
+	// 파일 불러오기
+	// 8. 게시물불러오기메소드 [프로그램 시작] 파일 --> 리스트
+		public static void load() {
+			try {
+				FileInputStream fileInputStream = new FileInputStream("D:/java/포인트.txt");
+				byte[] bytes = new byte[1024];
+				fileInputStream.read(bytes);
+				String file = new String(bytes);
+				String[] point = file.split("\n");
+
+				int i=0; // 인덱스용
+				for(String temp : point) { 
+					if(i+1==point.length) break;			
+					pointlist.add(temp);
+					i++; // 인덱스 증가
+				}
+				
+			} catch(Exception e) {
+				System.out.println("알림)) 파일 로드 실패(관리자에게 문의)");
+			}
+		}
 	
 	
 

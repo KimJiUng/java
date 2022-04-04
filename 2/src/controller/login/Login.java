@@ -3,6 +3,7 @@ package controller.login;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dto.Member;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.util.Duration;
 
 public class Login implements Initializable{
 
@@ -25,6 +27,9 @@ public class Login implements Initializable{
     @FXML
     private BorderPane borderpane2;
     
+    // * 로그인 성공한 회원객체
+    public static Member member;
+    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     	
@@ -36,7 +41,12 @@ public class Login implements Initializable{
     		// 3. 미디어뷰에 미디어플레이어 넣기
     		mediaview.setMediaPlayer(mediaPlayer);
     		// 4. 미디어 플레이어 시작
-    		mediaPlayer.play();
+    		mediaPlayer.setOnEndOfMedia(new Runnable() {
+				@Override
+				public void run() {
+					mediaPlayer.seek(Duration.ZERO);
+				}
+			});
     		loadpage("/view/login/loginpane.fxml");
     }
     
