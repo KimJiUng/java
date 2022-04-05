@@ -232,7 +232,6 @@ public class MemberDao { // DB 접근객체
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			
 			String now =Login.member.getMid()+format.format(new Date());
-			System.out.println("now : "+now);
 			String sql = "update member set mpoint=? where mnum=?";
 			ps = con.prepareStatement(sql);
 			boolean p = false;
@@ -242,10 +241,8 @@ public class MemberDao { // DB 접근객체
 				}
 			}
 			if(p==true) {
-				System.out.println("포인트미지급");
 				ps.setInt(1, Login.member.getMpoint());
 			}else {
-				System.out.println("포인트지급");
 				ps.setInt(1, (Login.member.getMpoint()+10));
 				i = Login.member.getMid()+format.format(new Date());
 				save();
@@ -276,7 +273,6 @@ public class MemberDao { // DB 접근객체
 		}
 	}
 	// 파일 불러오기
-	// 8. 게시물불러오기메소드 [프로그램 시작] 파일 --> 리스트
 		public static void load() {
 			try {
 				FileInputStream fileInputStream = new FileInputStream("D:/java/포인트.txt");

@@ -71,7 +71,7 @@ public class Loginpane implements Initializable {
     	if(result) {
     		// 로그인 성공시 성공한 회원정보 저장 [로그아웃시 초기화]
     		Login.member = MemberDao.memberDao.getMember(id);
-    		System.out.println("i : "+MemberDao.i);
+    		
     		boolean result2 = MemberDao.memberDao.pointplus();
     		if(result2) {
     			Login.member = MemberDao.memberDao.getMember(id);

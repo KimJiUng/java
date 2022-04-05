@@ -20,6 +20,9 @@ import javafx.scene.layout.BorderPane;
 
 public class Home implements Initializable {
 	
+	public static Home instance;
+	
+	public Home() {instance=this;}
 	
 	@FXML
 	private Label lblloginid;
@@ -75,7 +78,7 @@ public class Home implements Initializable {
     		Parent parent = FXMLLoader.load(getClass().getResource(page));
     		borderpane.setCenter(parent);
     	} catch(Exception e) {
-    		System.out.println("a페이지 불러오기 실패 : "+e);
+    		System.out.println("Home 페이지 불러오기 실패 : "+e);
     	}
     }
 	@FXML
@@ -93,6 +96,13 @@ public class Home implements Initializable {
 	@FXML
 	public void accmodify(MouseEvent e) {
 		loadpage("/view/home/modify.fxml");
+	}
+	
+	@FXML
+	private Label lblboard;
+	
+	@FXML void accboard(MouseEvent e) {
+		loadpage("/view/board/board.fxml");
 	}
 
 	

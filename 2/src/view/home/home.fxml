@@ -30,7 +30,7 @@
             <Label layoutX="78.0" layoutY="368.0" prefHeight="15.0" prefWidth="56.0" text="가전제품" />
             <Label layoutX="11.0" layoutY="405.0" prefHeight="15.0" prefWidth="127.0" text="커뮤니티" />
             <Line endX="136.0" layoutX="106.0" layoutY="425.0" startX="-100.0" strokeWidth="3.0" />
-            <Label layoutX="14.0" layoutY="438.0" prefHeight="15.0" prefWidth="74.0" text="자유게시판" />
+            <Label fx:id="lblboard" onMouseClicked="#accboard" layoutX="14.0" layoutY="438.0" prefHeight="15.0" prefWidth="74.0" text="자유게시판" />
             <Label layoutX="14.0" layoutY="463.0" prefHeight="15.0" prefWidth="64.0" text="정보게시판" />
             <Label layoutX="13.0" layoutY="492.0" prefHeight="15.0" prefWidth="127.0" text="정보" />
             <Line endX="136.0" layoutX="109.0" layoutY="512.0" startX="-100.0" strokeWidth="3.0" />

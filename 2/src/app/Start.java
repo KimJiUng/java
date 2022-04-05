@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Start extends Application {
@@ -25,7 +26,14 @@ public class Start extends Application {
 				// 상대경로 : 현 위치[프로젝트기준 src] 기준 경로
 					// 생략 [src 폴더부터] /img/파일명.확장자
 		
-		stage.getIcons().add(image); 
+		stage.getIcons().add(image);
+		
+		// * 외부 폰트 설정
+			// 1. 폰트 가져오기
+			Font.loadFont(getClass().getResourceAsStream("해남체.ttf"), 14);
+			// 2. 외부 스타일시트 적용
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
 		stage.setResizable(false); // 4. 스테이지 크기 변경 불가
 		stage.setTitle("이젠마켓"); // 2. 스테이지 창 이름
 		stage.show(); // 1. 스테이지 열기

@@ -41,6 +41,7 @@ public class Login implements Initializable{
     		// 3. 미디어뷰에 미디어플레이어 넣기
     		mediaview.setMediaPlayer(mediaPlayer);
     		// 4. 미디어 플레이어 시작
+    		mediaPlayer.play();
     		mediaPlayer.setOnEndOfMedia(new Runnable() {
 				@Override
 				public void run() {
