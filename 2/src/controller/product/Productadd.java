@@ -31,7 +31,18 @@ public class Productadd implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		if(Productview.update==true) {
+			Product product = Productcontrol.select;
+			btnadd.setText("수정완료");
+			txtpname.setText(product.getPname());
+			txtpcontent.setText(product.getPcontent());
+			img.setImage(new Image(product.getPimg()));
+			txtpprice.setText(Integer.toString(product.getPprice()) );
+			if(product.getPcategory().equals("남성의류")) {opt1.setSelected(true);}
+			if(product.getPcategory().equals("여성의류")) {opt2.setSelected(true);}
+			if(product.getPcategory().equals("생활용품")) {opt3.setSelected(true);}
+			if(product.getPcategory().equals("전자제품")) {opt4.setSelected(true);}
+		}
 		
 	}
 	
@@ -76,61 +87,126 @@ public class Productadd implements Initializable {
 
     @FXML
     void add(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	try {
-    		
-        	// 1. 컨트롤에 입력된 데이터 가져오기
-        	String pname = txtpname.getText();
-        	String pcontent = txtpcontent.getText();
-        	int pprice = Integer.parseInt(txtpprice.getText());
-        		// * 카테고리
-        	String pcategory = null;
-        		if(opt1.isSelected()) { // 만약에 opt1이라는 fxid의 컨트롤(라디오버튼)이 선택되었으면
-        			pcategory="남성의류";
-        		}
-        		if(opt2.isSelected()) {pcategory="여성의류";}
-        		if(opt3.isSelected()) {pcategory="생활용품";}
-        		if(opt4.isSelected()) {pcategory="전자제품";}
-        	int mnum = Login.member.getMnum();
-        	// 2. (유효성검사)
-        	if(pname.length()<1) {
-        		alert.setHeaderText("제품명을 입력하셔야 합니다.");
+    	if(Productview.update==true) {
+    		if(pimage==null) {
+    			pimage=Productcontrol.select.getPimg();
+    		}
+    		Alert alert = new Alert(AlertType.INFORMATION);
+        	try {
+        		
+            	// 1. 컨트롤에 입력된 데이터 가져오기
+        		int pnum = Productcontrol.select.getPnum();
+            	String pname = txtpname.getText();
+            	String pcontent = txtpcontent.getText();
+            	int pprice = Integer.parseInt(txtpprice.getText());
+            		// * 카테고리
+            	String pcategory = null;
+            		if(opt1.isSelected()) { // 만약에 opt1이라는 fxid의 컨트롤(라디오버튼)이 선택되었으면
+            			pcategory="남성의류";
+            		}
+            		if(opt2.isSelected()) {pcategory="여성의류";}
+            		if(opt3.isSelected()) {pcategory="생활용품";}
+            		if(opt4.isSelected()) {pcategory="전자제품";}
+            	int mnum = Login.member.getMnum();
+            	// 2. (유효성검사)
+            	if(pname.length()<1) {
+            		alert.setHeaderText("제품명을 입력하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	if(pcontent.length()<1) {
+            		alert.setHeaderText("제품설명을 입력하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	if(txtpprice.getText().length()<1) {
+            		alert.setHeaderText("제품가격을 입력하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	if(!(opt1.isSelected() || opt2.isSelected() || opt3.isSelected() || opt4.isSelected() ) ) {
+            		alert.setHeaderText("카테고리를 선택하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	// 3. 객체화
+            	Product product = new Product(pnum, pname, pimage, pcontent, pcategory, pprice, 1, null, mnum);
+            	boolean result = ProductDao.productDao.update(product);
+            	if(result) {
+            		alert.setHeaderText("수정 완료");
+            		alert.showAndWait();
+            		Productview.update=false;
+            		Home.instance.loadpage("/view/product/product.fxml");
+            	}else {
+            		alert.setHeaderText("수정 실패[관리자에게 문의]");
+            		alert.showAndWait();
+            		Productview.update=false;
+            	}
+            	// 4. DB처리
+            	
+            	// 5. 결과처리
+        	} catch(NumberFormatException e) {
+        		alert.setHeaderText("제품가격은 숫자만 입력가능합니다.");
         		alert.showAndWait();
-        		return;
         	}
-        	if(pcontent.length()<1) {
-        		alert.setHeaderText("제품설명을 입력하셔야 합니다.");
+    	}else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+        	try {
+        		
+            	// 1. 컨트롤에 입력된 데이터 가져오기
+            	String pname = txtpname.getText();
+            	String pcontent = txtpcontent.getText();
+            	int pprice = Integer.parseInt(txtpprice.getText());
+            		// * 카테고리
+            	String pcategory = null;
+            		if(opt1.isSelected()) { // 만약에 opt1이라는 fxid의 컨트롤(라디오버튼)이 선택되었으면
+            			pcategory="남성의류";
+            		}
+            		if(opt2.isSelected()) {pcategory="여성의류";}
+            		if(opt3.isSelected()) {pcategory="생활용품";}
+            		if(opt4.isSelected()) {pcategory="전자제품";}
+            	int mnum = Login.member.getMnum();
+            	// 2. (유효성검사)
+            	if(pname.length()<1) {
+            		alert.setHeaderText("제품명을 입력하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	if(pcontent.length()<1) {
+            		alert.setHeaderText("제품설명을 입력하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	if(txtpprice.getText().length()<1) {
+            		alert.setHeaderText("제품가격을 입력하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	if(!(opt1.isSelected() || opt2.isSelected() || opt3.isSelected() || opt4.isSelected() ) ) {
+            		alert.setHeaderText("카테고리를 선택하셔야 합니다.");
+            		alert.showAndWait();
+            		return;
+            	}
+            	// 3. 객체화
+            	Product product = new Product(0, pname, pimage, pcontent, pcategory, pprice, 1, null, mnum);
+            	boolean result = ProductDao.productDao.add(product);
+            	if(result) {
+            		alert.setHeaderText("제품 등록 완료");
+            		alert.showAndWait();
+            		Home.instance.loadpage("/view/product/product.fxml");
+            	}else {
+            		alert.setHeaderText("제품 등록 실패[관리자에게 문의]");
+            		alert.showAndWait();
+            	}
+            	// 4. DB처리
+            	
+            	// 5. 결과처리
+        	} catch(NumberFormatException e) {
+        		alert.setHeaderText("제품가격은 숫자만 입력가능합니다.");
         		alert.showAndWait();
-        		return;
         	}
-        	if(txtpprice.getText().length()<1) {
-        		alert.setHeaderText("제품가격을 입력하셔야 합니다.");
-        		alert.showAndWait();
-        		return;
-        	}
-        	if(!(opt1.isSelected() || opt2.isSelected() || opt3.isSelected() || opt4.isSelected() ) ) {
-        		alert.setHeaderText("카테고리를 선택하셔야 합니다.");
-        		alert.showAndWait();
-        		return;
-        	}
-        	// 3. 객체화
-        	Product product = new Product(0, pname, pimage, pcontent, pcategory, pprice, 1, null, mnum);
-        	boolean result = ProductDao.productDao.add(product);
-        	if(result) {
-        		alert.setHeaderText("제품 등록 완료");
-        		alert.showAndWait();
-        		Home.instance.loadpage("/view/product/product.fxml");
-        	}else {
-        		alert.setHeaderText("제품 등록 실패[관리자에게 문의]");
-        		alert.showAndWait();
-        	}
-        	// 4. DB처리
-        	
-        	// 5. 결과처리
-    	} catch(NumberFormatException e) {
-    		alert.setHeaderText("제품가격은 숫자만 입력가능합니다.");
-    		alert.showAndWait();
     	}
+    	
     	
     	
     	
@@ -138,7 +214,13 @@ public class Productadd implements Initializable {
 
     @FXML
     void back(ActionEvent event) {
-    	Home.instance.loadpage("/view/product/product.fxml");
+    	if(Productview.update==true) {
+    		Productview.update=false;
+    		Home.instance.loadpage("/view/product/productview.fxml");
+    	}else {
+    		Home.instance.loadpage("/view/product/product.fxml");
+    	}
+    	
     }
 
     private String pimage = null; // 메소드밖에서 선언하는 이유 : imgadd 메소드와 add 메소드에서 사용하기 위해

@@ -73,8 +73,36 @@ public class ProductDao {
 	// 3. 力前 炼雀
 	
 	// 4. 力前 昏力
-	
+	public boolean delete(int pnum) {
+		try {
+			String sql = "delete from product where pnum=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, pnum);
+			ps.executeUpdate();
+			return true;
+		} catch(Exception e) {
+			System.out.println("力前昏力 SQL 坷幅 : "+e);
+		}
+		return false;
+	}
 	// 5. 力前 荐沥
-	
+	public boolean update(Product product) {
+		try {
+			String sql = "update product set pname=?, pcontent=?, pcategory=?, pimg=?, pprice=? where pnum=?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, product.getPname());
+			ps.setString(2, product.getPcontent());
+			ps.setString(3, product.getPcategory());
+			ps.setString(4, product.getPimg());
+			ps.setInt(5, product.getPprice());
+			ps.setInt(6, product.getPnum());
+			ps.executeUpdate();
+			return true;
+			
+		} catch(Exception e) {
+			System.out.println("力前荐沥 SQL 坷幅 : "+e);
+		}
+		return false;
+	}
 	
 }

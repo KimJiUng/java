@@ -273,26 +273,41 @@ public class MemberDao { // DB 접근객체
 		}
 	}
 	// 파일 불러오기
-		public static void load() {
-			try {
-				FileInputStream fileInputStream = new FileInputStream("D:/java/포인트.txt");
-				byte[] bytes = new byte[1024];
-				fileInputStream.read(bytes);
-				String file = new String(bytes);
-				String[] point = file.split("\n");
+	public static void load() {
+		try {
+			FileInputStream fileInputStream = new FileInputStream("D:/java/포인트.txt");
+			byte[] bytes = new byte[1024];
+			fileInputStream.read(bytes);
+			String file = new String(bytes);
+			String[] point = file.split("\n");
 
-				int i=0; // 인덱스용
-				for(String temp : point) { 
-					if(i+1==point.length) break;			
-					pointlist.add(temp);
-					i++; // 인덱스 증가
-				}
-				
-			} catch(Exception e) {
-				System.out.println("알림)) 파일 로드 실패(관리자에게 문의)");
+			int i=0; // 인덱스용
+			for(String temp : point) { 
+				if(i+1==point.length) break;			
+				pointlist.add(temp);
+				i++; // 인덱스 증가
 			}
+			
+		} catch(Exception e) {
+			System.out.println("알림)) 파일 로드 실패(관리자에게 문의)");
 		}
+	}
 	
+	// 9. 해당 회원번호로 해당 id 찾기
+	public String getmid(int mnum) {
+		try {
+			String sql = "select mid from member where mnum=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, mnum);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		} catch(Exception e) {
+			System.out.println("회원id찾기 SQL 오류 : "+e);
+		}
+		return null;
+	}
 	
 
 }
