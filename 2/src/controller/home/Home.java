@@ -105,5 +105,9 @@ public class Home implements Initializable {
 		loadpage("/view/board/board.fxml");
 	}
 
+	@FXML
+	public void accproduct(MouseEvent e) {
+		loadpage("/view/product/product.fxml");
+	}
 	
 }

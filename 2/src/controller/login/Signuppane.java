@@ -78,6 +78,7 @@ public class Signuppane implements Initializable {
     		// 2. id 길이 체크
     	if(id.length()<4 || id.length()>10) {
     		lblconfirm.setText("아이디의 길이는 4~10 사이로 입력해주세요.");
+    		return;
     	}
     		// 3. 비밀번호 길이 체크
     	if(password.length()<4 || password.length()>10) {
