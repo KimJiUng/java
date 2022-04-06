@@ -42,11 +42,12 @@ public class BoardDao {
 		// 1. 글쓰기 메소드
 	public boolean write(Board board) {
 		try {
-			String sql = "insert into board(btitle, bcontent,bwrite) values(?,?,?)";
+			String sql = "insert into board(btitle, bcontent,bwrite,mnum) values(?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, board.getBtitle());
 			ps.setString(2, board.getBcontent());
 			ps.setString(3, board.getBwrite());
+			ps.setInt(4, board.getMnum());
 			ps.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -73,7 +74,8 @@ public class BoardDao {
 						rs.getString(3), 
 						rs.getString(4), 
 						rs.getString(5), 
-						rs.getInt(6));
+						rs.getInt(6),
+						rs.getInt(7));
 				// 리스트에 추가
 				boardlist.add(board);
 			}
@@ -91,6 +93,12 @@ public class BoardDao {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, bnum);
 			ps.executeUpdate();
+			
+			String sql2 = "delete from reply where bnum=?";
+			ps=con.prepareStatement(sql2);
+			ps.setInt(1, bnum);
+			ps.executeUpdate();
+			
 			return true;
 		} catch(Exception e) {
 			System.out.println("글삭제 SQL 오류 : "+e);

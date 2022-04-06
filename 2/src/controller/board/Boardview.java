@@ -170,6 +170,7 @@ public class Boardview implements Initializable {
     	Alert alert = new Alert(AlertType.INFORMATION);
     	
     	if(updatecheck) { // 수정 시작
+    		
     		alert.setHeaderText("게시글 수정후 수정완료 버튼 눌러주세요");
     		alert.showAndWait();
     		txttitle.setEditable(true);
@@ -231,6 +232,7 @@ public class Boardview implements Initializable {
     	Alert alert = new Alert(AlertType.INFORMATION);
     	
     	if(updatecheck) { // 수정 시작
+    		btnreupdate.setVisible(false);
     		alert.setHeaderText("댓글 수정후 수정완료 버튼 눌러주세요");
     		alert.showAndWait();
     		btnrewrite.setText("수정완료");

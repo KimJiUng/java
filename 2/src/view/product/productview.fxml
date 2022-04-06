@@ -21,7 +21,7 @@
       <Line endX="172.0" layoutX="143.0" layoutY="92.0" startX="-100.0" stroke="#0873ff" strokeWidth="5.0" />
       <TextField fx:id="txtpname" layoutX="63.0" layoutY="147.0" prefHeight="39.0" prefWidth="479.0" promptText="제품명" />
       <TextArea fx:id="txtpcontent" layoutX="63.0" layoutY="203.0" prefHeight="198.0" prefWidth="479.0" promptText="제품설명" />
-      <Button fx:id="btnback" layoutX="882.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #00ff12;" text="뒤로가기">
+      <Button fx:id="btnback" layoutX="882.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #00ff12;" text="목록">
          <font>
             <Font size="15.0" />
          </font>

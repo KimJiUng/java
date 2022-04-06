@@ -8,19 +8,29 @@ public class Board {
 	private String bwrite;
 	private String bdate;
 	private int bview;
+	private int mnum;
 	
 	public Board() {}
 
-	public Board(int bnum, String btitle, String bcontent, String bwrite, String bdate, int bview) {
+	public Board(int bnum, String btitle, String bcontent, String bwrite, String bdate, int bview, int mnum) {
 		this.bnum = bnum;
 		this.btitle = btitle;
 		this.bcontent = bcontent;
 		this.bwrite = bwrite;
 		this.bdate = bdate;
 		this.bview = bview;
+		this.mnum = mnum;
 	}
 
-	
+
+	public int getMnum() {
+		return mnum;
+	}
+
+	public void setMnum(int mnum) {
+		this.mnum = mnum;
+	}
+
 	public int getBnum() {
 		return bnum;
 	}

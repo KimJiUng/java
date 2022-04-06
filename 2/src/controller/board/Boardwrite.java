@@ -45,8 +45,8 @@ public class Boardwrite implements Initializable {
     	String title = txttitle.getText();
     	String content = txtcontent.getText();
     	String writer = Login.member.getMid();
-    	
-    	Board board = new Board(0, title, content, writer, null, 0);
+    	int mnum = Login.member.getMnum();
+    	Board board = new Board(0, title, content, writer, null, 0,mnum);
     	boolean result = BoardDao.boardDao.write(board);
     	if(result) {
     		Alert alert = new Alert(AlertType.INFORMATION);

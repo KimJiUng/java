@@ -33,7 +33,7 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btnback" layoutX="881.0" layoutY="52.0" mnemonicParsing="false" onAction="#accback" prefHeight="29.0" prefWidth="99.0" style="-fx-background-color: #00ff12;" text="뒤로가기">
+      <Button fx:id="btnback" layoutX="881.0" layoutY="52.0" mnemonicParsing="false" onAction="#accback" prefHeight="29.0" prefWidth="99.0" style="-fx-background-color: #00ff12;" text="목록">
          <font>
             <Font size="15.0" />
          </font>

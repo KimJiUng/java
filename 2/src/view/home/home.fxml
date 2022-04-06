@@ -34,7 +34,7 @@
             <Label layoutX="14.0" layoutY="463.0" prefHeight="15.0" prefWidth="64.0" text="정보게시판" />
             <Label layoutX="13.0" layoutY="492.0" prefHeight="15.0" prefWidth="127.0" text="정보" />
             <Line endX="136.0" layoutX="109.0" layoutY="512.0" startX="-100.0" strokeWidth="3.0" />
-            <Label layoutX="17.0" layoutY="525.0" prefHeight="15.0" prefWidth="74.0" text="내가쓴글" />
+            <Label fx:id="lblmyboard" onMouseClicked="#accmyboard" layoutX="17.0" layoutY="525.0" prefHeight="15.0" prefWidth="74.0" text="내가쓴글" />
             <Label fx:id="lblinfo" layoutX="77.0" layoutY="525.0" onMouseClicked="#accinfo" prefHeight="15.0" prefWidth="64.0" text="회원정보" />
             <Label fx:id="lbldelete" layoutX="76.0" layoutY="546.0" onMouseClicked="#delete" prefHeight="15.0" prefWidth="64.0" text="회원탈퇴" />
             <Label fx:id="lblmodify" onMouseClicked="#accmodify" layoutX="16.0" layoutY="546.0" prefHeight="15.0" prefWidth="64.0" text="정보수정" />
