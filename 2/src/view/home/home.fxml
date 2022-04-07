@@ -24,20 +24,20 @@
             <Label layoutX="14.0" layoutY="267.0" prefHeight="15.0" prefWidth="127.0" text="공지사항" />
             <Label layoutX="12.0" layoutY="310.0" prefHeight="15.0" prefWidth="127.0" text="중고거래" />
             <Line endX="136.0" layoutX="107.0" layoutY="331.0" startX="-100.0" strokeWidth="3.0" />
-            <Label fx:id="lblproduct" onMouseClicked="#accproduct" layoutX="14.0" layoutY="341.0" prefHeight="15.0" prefWidth="56.0" text="남성의류" />
-            <Label layoutX="13.0" layoutY="368.0" prefHeight="15.0" prefWidth="56.0" text="여성의류" />
-            <Label layoutX="78.0" layoutY="341.0" prefHeight="15.0" prefWidth="56.0" text="생활용품" />
-            <Label layoutX="78.0" layoutY="368.0" prefHeight="15.0" prefWidth="56.0" text="가전제품" />
+            <Label fx:id="lblproduct1" layoutX="14.0" layoutY="341.0" onMouseClicked="#accproduct1" prefHeight="15.0" prefWidth="56.0" text="남성의류" />
+            <Label fx:id="lblproduct2" layoutX="13.0" layoutY="368.0" onMouseClicked="#accproduct2" prefHeight="15.0" prefWidth="56.0" text="여성의류" />
+            <Label fx:id="lblproduct3" layoutX="78.0" layoutY="341.0" onMouseClicked="#accproduct3" prefHeight="15.0" prefWidth="56.0" text="생활용품" />
+            <Label fx:id="lblproduct4" layoutX="78.0" layoutY="368.0" onMouseClicked="#accproduct4" prefHeight="15.0" prefWidth="56.0" text="가전제품" />
             <Label layoutX="11.0" layoutY="405.0" prefHeight="15.0" prefWidth="127.0" text="커뮤니티" />
             <Line endX="136.0" layoutX="106.0" layoutY="425.0" startX="-100.0" strokeWidth="3.0" />
-            <Label fx:id="lblboard" onMouseClicked="#accboard" layoutX="14.0" layoutY="438.0" prefHeight="15.0" prefWidth="74.0" text="자유게시판" />
+            <Label fx:id="lblboard" layoutX="14.0" layoutY="438.0" onMouseClicked="#accboard" prefHeight="15.0" prefWidth="74.0" text="자유게시판" />
             <Label layoutX="14.0" layoutY="463.0" prefHeight="15.0" prefWidth="64.0" text="정보게시판" />
             <Label layoutX="13.0" layoutY="492.0" prefHeight="15.0" prefWidth="127.0" text="정보" />
             <Line endX="136.0" layoutX="109.0" layoutY="512.0" startX="-100.0" strokeWidth="3.0" />
-            <Label fx:id="lblmyboard" onMouseClicked="#accmyboard" layoutX="17.0" layoutY="525.0" prefHeight="15.0" prefWidth="74.0" text="내가쓴글" />
+            <Label fx:id="lblmyboard" layoutX="17.0" layoutY="525.0" onMouseClicked="#accmyboard" prefHeight="15.0" prefWidth="74.0" text="내가쓴글" />
             <Label fx:id="lblinfo" layoutX="77.0" layoutY="525.0" onMouseClicked="#accinfo" prefHeight="15.0" prefWidth="64.0" text="회원정보" />
             <Label fx:id="lbldelete" layoutX="76.0" layoutY="546.0" onMouseClicked="#delete" prefHeight="15.0" prefWidth="64.0" text="회원탈퇴" />
-            <Label fx:id="lblmodify" onMouseClicked="#accmodify" layoutX="16.0" layoutY="546.0" prefHeight="15.0" prefWidth="64.0" text="정보수정" />
+            <Label fx:id="lblmodify" layoutX="16.0" layoutY="546.0" onMouseClicked="#accmodify" prefHeight="15.0" prefWidth="64.0" text="정보수정" />
             <Label layoutX="13.0" layoutY="588.0" prefHeight="15.0" prefWidth="127.0" text="관리자" />
             <Line endX="136.0" layoutX="109.0" layoutY="608.0" startX="-100.0" strokeWidth="3.0" />
             <Label layoutX="17.0" layoutY="621.0" prefHeight="15.0" prefWidth="74.0" text="통계" />
@@ -45,6 +45,7 @@
             <Label layoutX="16.0" layoutY="668.0" prefHeight="21.0" prefWidth="87.0" text="고객 센터" />
             <Label layoutX="16.0" layoutY="689.0" prefHeight="21.0" prefWidth="87.0" text="전화번호" />
             <Label layoutX="157.0" layoutY="668.0" prefHeight="21.0" prefWidth="87.0" text="신고하기" />
+            <Label fx:id="lblchatting" layoutX="101.0" layoutY="438.0" onMouseClicked="#accchatting" prefHeight="15.0" prefWidth="89.0" text="실시간 채팅방" />
          </children>
       </AnchorPane>
    </left>

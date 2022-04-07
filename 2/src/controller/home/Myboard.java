@@ -1,6 +1,7 @@
 package controller.home;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import controller.Main;
@@ -32,9 +33,45 @@ public class Myboard implements Initializable {
 				boardlist.add(BoardDao.boardDao.list().get(i));
 			}
 		}
-		for(int i=0; i<ProductDao.productDao.list().size(); i++) {
-			if(Login.member.getMnum()==ProductDao.productDao.list().get(i).getMnum()) {
-				pboardlist.add(ProductDao.productDao.list().get(i));
+		ArrayList<Product> pd = ProductDao.productDao.list(null,null);
+		for(int i=0; i<pd.size(); i++) {
+			if(Login.member.getMnum()==pd.get(i).getMnum()) {
+				if(pd.get(i).getPactivation()==1) {
+					Product product = new Product(pd.get(i).getPnum(), 
+							pd.get(i).getPname(), 
+							"판매중", 
+							pd.get(i).getPcontent(), 
+							pd.get(i).getPcategory(), 
+							pd.get(i).getPprice(), 
+							pd.get(i).getPactivation(), 
+							pd.get(i).getPdate(), 
+							pd.get(i).getPnum());
+					pboardlist.add(product);
+				}
+				else if(pd.get(i).getPactivation()==2) {
+					Product product = new Product(pd.get(i).getPnum(), 
+							pd.get(i).getPname(), 
+							"거래중", 
+							pd.get(i).getPcontent(), 
+							pd.get(i).getPcategory(), 
+							pd.get(i).getPprice(), 
+							pd.get(i).getPactivation(), 
+							pd.get(i).getPdate(), 
+							pd.get(i).getPnum());
+					pboardlist.add(product);
+				}
+				else if(pd.get(i).getPactivation()==3) {
+					Product product = new Product(pd.get(i).getPnum(), 
+							pd.get(i).getPname(), 
+							"판매완료", 
+							pd.get(i).getPcontent(), 
+							pd.get(i).getPcategory(), 
+							pd.get(i).getPprice(), 
+							pd.get(i).getPactivation(), 
+							pd.get(i).getPdate(), 
+							pd.get(i).getPnum());
+					pboardlist.add(product);
+				}
 			}
 		}
 		
@@ -54,12 +91,18 @@ public class Myboard implements Initializable {
 		tc2.setCellValueFactory(new PropertyValueFactory<>("pnum"));
 		
 		tc2 = pboardtable.getColumns().get(1);
-		tc2.setCellValueFactory(new PropertyValueFactory<>("pname"));
+		tc2.setCellValueFactory(new PropertyValueFactory<>("pcategory"));
 		
 		tc2 = pboardtable.getColumns().get(2);
-		tc2.setCellValueFactory(new PropertyValueFactory<>("pprice"));
+		tc2.setCellValueFactory(new PropertyValueFactory<>("pname"));
 		
 		tc2 = pboardtable.getColumns().get(3);
+		tc2.setCellValueFactory(new PropertyValueFactory<>("pprice"));
+		
+		tc2 = pboardtable.getColumns().get(4);
+		tc2.setCellValueFactory(new PropertyValueFactory<>("pimg"));
+		
+		tc2 = pboardtable.getColumns().get(5);
 		tc2.setCellValueFactory(new PropertyValueFactory<>("pdate"));
 
 		
@@ -71,7 +114,10 @@ public class Myboard implements Initializable {
 			Home.instance.loadpage("/view/board/boardview.fxml");
 		});
 		pboardtable.setOnMouseClicked(e ->{
-			Productcontrol.select = pboardtable.getSelectionModel().getSelectedItem();
+			int selectpnum = pboardtable.getSelectionModel().getSelectedItem().getPnum();
+			Home.category = pboardtable.getSelectionModel().getSelectedItem().getPcategory();
+			Product result = ProductDao.productDao.pnumserch(selectpnum);
+			Productcontrol.select = result;
 			Home.instance.loadpage("/view/product/productview.fxml");
 		});
 		

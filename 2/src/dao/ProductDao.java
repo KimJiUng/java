@@ -45,11 +45,24 @@ public class ProductDao {
 		return false;
 	}
 	// 2. 모든 제품 출력
-	public ArrayList<Product> list() {
+	public ArrayList<Product> list(String category, String serch) {
+		ArrayList<Product> productlist = new ArrayList<>();
 		try {
-			ArrayList<Product> productlist = new ArrayList<>();
-			String sql = "select * from product order by pnum desc";
-			ps = con.prepareStatement(sql);
+			String sql = null;
+			if(category==null && serch==null) {
+				sql = "select * from product order by pnum desc";
+				ps = con.prepareStatement(sql);
+			}
+			else if(serch==null) { // 검색이 없을경우
+				sql = "select * from product where pcategory=? order by pnum desc";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, category);
+			}else { // 검색이 있을경우						// 필드명 = 값 [=비교연산자] // 필드명 like %값% [값이 포함된 비교연산자]
+				sql = "select * from product where pcategory=? and pname like '%"+serch+"%' order by pnum desc";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, category);
+			}
+			
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Product product = new Product(
@@ -63,6 +76,7 @@ public class ProductDao {
 						rs.getString(8), 
 						rs.getInt(9));
 				productlist.add(product);
+				
 			}
 			return productlist;
 		} catch(Exception e) {
@@ -71,7 +85,30 @@ public class ProductDao {
 		return null;
 	}
 	// 3. 제품 조회
-	
+	public Product pnumserch(int pnum) {
+		try {
+			String sql = "select * from product where pnum=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, pnum);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				Product product = new Product(
+						rs.getInt(1), 
+						rs.getString(2), 
+						rs.getString(3), 
+						rs.getString(4), 
+						rs.getString(5), 
+						rs.getInt(6), 
+						rs.getInt(7), 
+						rs.getString(8), 
+						rs.getInt(9));
+				return product;
+			}
+		} catch(Exception e) {
+			System.out.println("제품조회 SQL 오류 : "+e);
+		}
+		return null;
+	}
 	// 4. 제품 삭제
 	public boolean delete(int pnum) {
 		try {
@@ -101,6 +138,35 @@ public class ProductDao {
 			
 		} catch(Exception e) {
 			System.out.println("제품수정 SQL 오류 : "+e);
+		}
+		return false;
+	}
+	
+	// 6. 제품 판매상태 변경
+	public boolean activation(int pnum) {
+		try {
+			String sql = "select pactivation from product where pnum=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, pnum);
+			rs = ps.executeQuery();
+			if(rs.next()) { // 검색결과가 존재하면 다음 레코드 가져오기
+				String usql=null;
+				if(rs.getInt(1)==1) { // 현재 판매상태가 1이면
+					usql = "update product set pactivation=2 where pnum=?";
+				}
+				else if(rs.getInt(1)==2) {
+					usql = "update product set pactivation=3 where pnum=?";
+				}
+				else if(rs.getInt(1)==3) {
+					usql = "update product set pactivation=1 where pnum=?";
+				}
+				ps = con.prepareStatement(usql);
+				ps.setInt(1, pnum);
+				ps.executeUpdate();
+				return true;
+			}
+		} catch(Exception e) {
+			System.out.println("판매상태변경 SQL 오류 : "+e);
 		}
 		return false;
 	}

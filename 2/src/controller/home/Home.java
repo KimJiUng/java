@@ -22,6 +22,8 @@ public class Home implements Initializable {
 	
 	public static Home instance;
 	
+	public static String category;
+	
 	public Home() {instance=this;}
 	
 	@FXML
@@ -36,6 +38,7 @@ public class Home implements Initializable {
 	@FXML
 	private Label lbldelete;
 	
+
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -104,15 +107,60 @@ public class Home implements Initializable {
 	@FXML void accboard(MouseEvent e) {
 		loadpage("/view/board/board.fxml");
 	}
+	@FXML
+	private Label lblproduct1;
+	
+	@FXML
+	private Label lblproduct2;
+	
+	@FXML
+	private Label lblproduct3;
+	
+	@FXML
+	private Label lblproduct4;
 
 	@FXML
-	public void accproduct(MouseEvent e) {
+	private Label lblmyboard;
+	
+	@FXML
+	public void accproduct1(MouseEvent e) {
+		category="남성의류";
 		loadpage("/view/product/product.fxml");
+		
+	}
+	
+	@FXML
+	public void accproduct2(MouseEvent e) {
+		category="여성의류";
+		loadpage("/view/product/product.fxml");
+		
+	}
+	
+	@FXML
+	public void accproduct3(MouseEvent e) {
+		category="생활용품";
+		loadpage("/view/product/product.fxml");
+		
+	}
+	
+	@FXML
+	public void accproduct4(MouseEvent e) {
+		category="가전제품";
+		loadpage("/view/product/product.fxml");
+		
 	}
 	
 	@FXML
 	public void accmyboard(MouseEvent e) {
 		loadpage("/view/home/myboard.fxml");
+	}
+	
+	@FXML
+	private Label lblchatting;
+	
+	@FXML
+	public void accchatting(MouseEvent e) {
+		loadpage("/view/chatting.fxml");
 	}
 	
 }

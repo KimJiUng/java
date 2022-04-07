@@ -14,15 +14,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -31,8 +32,8 @@ public class Productadd implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		Product product = Productcontrol.select;
 		if(Productview.update==true) {
-			Product product = Productcontrol.select;
 			btnadd.setText("수정완료");
 			txtpname.setText(product.getPname());
 			txtpcontent.setText(product.getPcontent());
@@ -41,9 +42,12 @@ public class Productadd implements Initializable {
 			if(product.getPcategory().equals("남성의류")) {opt1.setSelected(true);}
 			if(product.getPcategory().equals("여성의류")) {opt2.setSelected(true);}
 			if(product.getPcategory().equals("생활용품")) {opt3.setSelected(true);}
-			if(product.getPcategory().equals("전자제품")) {opt4.setSelected(true);}
+			if(product.getPcategory().equals("가전제품")) {opt4.setSelected(true);}
 		}
 		
+		if(product.getPactivation()==1) { txtactivation.setText("판매중"); btnactivation.setText("판매상태 변경 : 거래중");	}
+		if(product.getPactivation()==2) { txtactivation.setText("거래중"); btnactivation.setText("판매상태 변경 : 판매완료");	}
+		if(product.getPactivation()==3) { txtactivation.setText("판매완료"); btnactivation.setText("판매상태 변경 : 판매중");	}
 	}
 	
     @FXML
@@ -84,6 +88,40 @@ public class Productadd implements Initializable {
 
     @FXML
     private Label txtpath;
+    
+    @FXML
+    private Button btnactivation;
+    
+    @FXML
+    private Text txtactivation;
+
+    @FXML
+    void accactivation(ActionEvent event) {
+    	if(btnactivation.getText().equals("판매상태 변경 : 거래중")) {
+    		txtactivation.setText("거래중");
+    		btnactivation.setText("판매상태 변경 : 판매완료");
+    		ProductDao.productDao.activation(Productcontrol.select.getPnum());
+    		Productcontrol.select.setPactivation(2);
+    		return;
+    	}
+    	if(btnactivation.getText().equals("판매상태 변경 : 판매완료")) {
+    		txtactivation.setText("판매완료");
+    		btnactivation.setText("판매상태 변경 : 판매중");
+    		ProductDao.productDao.activation(Productcontrol.select.getPnum());
+    		Productcontrol.select.setPactivation(3);
+    		return;
+    	}
+    	if(btnactivation.getText().equals("판매상태 변경 : 판매중")) {
+    		txtactivation.setText("판매중");
+    		btnactivation.setText("판매상태 변경 : 거래중");
+    		ProductDao.productDao.activation(Productcontrol.select.getPnum());
+    		Productcontrol.select.setPactivation(1);
+    		return;
+    	}
+    	
+    	
+    }
+    
 
     @FXML
     void add(ActionEvent event) {

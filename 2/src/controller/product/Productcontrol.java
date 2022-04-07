@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -28,6 +29,19 @@ public class Productcontrol implements Initializable {
 
     @FXML
     private VBox vbox;
+    
+    @FXML
+    private TextField txtserch;
+
+    @FXML
+    private Button btnserch;
+    
+    @FXML
+    void accserch(ActionEvent event) { // 검색 버튼 눌렀을때
+    	String serch = txtserch.getText(); // 검색창에 입력된 데이터 가져오기
+    	show(serch);
+    	
+    }
 
     @FXML
     void accadd(ActionEvent event) {
@@ -36,10 +50,13 @@ public class Productcontrol implements Initializable {
 
     public static Product select;
     
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// 1. 모든 제품 가져오기
-		ArrayList<Product> productlist = ProductDao.productDao.list();
+    void show(String serch) {
+    	if(vbox.getChildren().isEmpty() == false) { // .isEmpty() : 해당 객체내 비어있는지 확인 [vbox내 비어 있는지 확인]
+    		// vbox내 객체가 비어있으면 true 비어있지않으면 false
+    		vbox.getChildren().remove(0); // vbox내 기존 객체 삭제
+    	}
+    	// 1. 모든 제품 가져오기
+		ArrayList<Product> productlist = ProductDao.productDao.list(Home.category,serch);
 		
 		// 2. 그리드 클래스 [행/열]
 		GridPane gridPane = new GridPane();
@@ -103,7 +120,11 @@ public class Productcontrol implements Initializable {
 		}
 		// 4. vbox에 그리드 넣기
 		vbox.getChildren().add(gridPane);
-		
+    }
+    
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		show(null); // 화면이 처음 열렸을때는 검색어에 null값 넣어주기
 	}
 	
 	
