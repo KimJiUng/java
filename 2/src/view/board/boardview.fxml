@@ -70,8 +70,8 @@
         <columns>
           <TableColumn prefWidth="62.0" text="댓글번호" />
           <TableColumn prefWidth="93.0" text="작성자" />
-            <TableColumn prefWidth="140.0" text="작성일" />
             <TableColumn prefWidth="651.0" text="내용" />
+            <TableColumn prefWidth="140.0" text="작성일" />
         </columns>
       </TableView>
       <Button fx:id="btnredelete" layoutX="898.0" layoutY="463.0" mnemonicParsing="false" onAction="#accredelete" prefHeight="29.0" prefWidth="99.0" style="-fx-background-color: #00ff12;" text="댓글 삭제">

@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -18,10 +20,13 @@ public class Chatting implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		txtmsg.setEditable(false);
-		txtcontent.setDisable(true);
-		btnsend.setDisable(true);
+		txtmsg.setDisable(true);  // 채팅입력창 사용금지
+		txtcontent.setDisable(true); // 채팅방 사용금지
+		btnsend.setDisable(true); // 전송버튼 사용금지
 		txtmsg.setText("채팅방 입장 후 사용가능합니다.");
+		btnconnect.setDisable(true); // 입장버튼 사용금지
+		txtmidlist.setDisable(true); // 접속회원 목록 사용금지
+		
 	}
 	
     @FXML
@@ -31,19 +36,47 @@ public class Chatting implements Initializable {
     private TextArea txtcontent;
 
     @FXML
-    private Button btnsend;
-
-    @FXML
     private TextField txtmsg;
 
     @FXML
-    private TextField txtname;
+    private Button btnsend;
 
     @FXML
-    private TextField txtip;
+    private TableView<?> roomtable;
 
     @FXML
-    private TextField txtport;
+    private TextField txtroomname;
+
+    @FXML
+    private Button btnadd;
+
+    @FXML
+    private TextArea txtmidlist;
+
+    @FXML
+    private Label lblselect;
+
+    @FXML
+    void add(ActionEvent event) { // 방 개설 버튼을 눌렀을때
+    	// 1. 컨트롤에 입력된 방 이름 가져오기
+    	// 2. 방 객체 만들기
+    	// 3. DB 처리
+    	// 4. 해당 방 서버 실행
+
+    }
+
+    @FXML
+    void msg(ActionEvent event) {
+    	String msg = txtmsg.getText()+"\n";
+    	send(msg);
+    	txtmsg.setText("");
+    	txtmsg.requestFocus(); // 보내기 후 메세지 입력창으로 포커스(커서) 이동
+    }
+
+    @FXML
+    void roomname(ActionEvent event) {
+
+    }
 
     // 1. 클라이언트 소켓 선언
     Socket socket;
@@ -100,7 +133,7 @@ public class Chatting implements Initializable {
     		txtcontent.appendText("---[채팅방 입장]---\n");
     		clientstart();
     		txtmsg.setText("");
-    		txtmsg.setEditable(true);
+    		txtmsg.setDisable(false);
     		txtcontent.setDisable(false);
     		btnsend.setDisable(false);
     		txtmsg.requestFocus();
@@ -109,7 +142,7 @@ public class Chatting implements Initializable {
     		btnconnect.setText("채팅방 입장");
     		txtcontent.appendText("---[채팅방 퇴장]---\n");
     		clientstop();
-    		txtmsg.setEditable(false);
+    		txtmsg.setDisable(true);
     		txtcontent.setDisable(true);
     		btnsend.setDisable(true);
     		txtmsg.setText("채팅방 입장 후 사용가능합니다.");

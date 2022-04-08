@@ -87,6 +87,32 @@ public class Loginpane implements Initializable {
     	
     }
     
+    @FXML
+    void enterlogin(ActionEvent event) {
+    	// 1. 컨트롤[fxid]에 입력된 값 가져오기
+    	String id = txtid.getText();
+    	String password = txtpassword.getText();
+    	// 2. DB 객체내 메소드 호출
+    	boolean result = MemberDao.memberDao.login(id, password);
+    	// 3. 결과 확인
+    	if(result) {
+    		// 로그인 성공시 성공한 회원정보 저장 [로그아웃시 초기화]
+    		Login.member = MemberDao.memberDao.getMember(id);
+    		
+    		boolean result2 = MemberDao.memberDao.pointplus();
+    		if(result2) {
+    			Login.member = MemberDao.memberDao.getMember(id);
+    			Main.instance.loadpage("/view/home/home.fxml");
+    		}
+    		
+    		
+    		
+    	}
+    	else {
+    		lblconfirm.setText("동일한 회원정보가 없습니다.");
+    	}
+    }
+    
 
     
   

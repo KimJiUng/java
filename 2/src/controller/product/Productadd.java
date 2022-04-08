@@ -43,11 +43,17 @@ public class Productadd implements Initializable {
 			if(product.getPcategory().equals("여성의류")) {opt2.setSelected(true);}
 			if(product.getPcategory().equals("생활용품")) {opt3.setSelected(true);}
 			if(product.getPcategory().equals("가전제품")) {opt4.setSelected(true);}
+			
+			if(product.getPactivation()==1) { txtactivation.setText("판매중"); btnactivation.setText("판매상태 변경 : 거래중");	}
+			if(product.getPactivation()==2) { txtactivation.setText("거래중"); btnactivation.setText("판매상태 변경 : 판매완료");	}
+			if(product.getPactivation()==3) { txtactivation.setText("판매완료"); btnactivation.setText("판매상태 변경 : 판매중");	}
 		}
 		
-		if(product.getPactivation()==1) { txtactivation.setText("판매중"); btnactivation.setText("판매상태 변경 : 거래중");	}
-		if(product.getPactivation()==2) { txtactivation.setText("거래중"); btnactivation.setText("판매상태 변경 : 판매완료");	}
-		if(product.getPactivation()==3) { txtactivation.setText("판매완료"); btnactivation.setText("판매상태 변경 : 판매중");	}
+		if(Home.category.equals("남성의류")) {opt1.setSelected(true);}
+		if(Home.category.equals("여성의류")) {opt2.setSelected(true);}
+		if(Home.category.equals("생활용품")) {opt3.setSelected(true);}
+		if(Home.category.equals("가전제품")) {opt4.setSelected(true);}
+		
 	}
 	
     @FXML
