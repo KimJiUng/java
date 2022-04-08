@@ -9,6 +9,8 @@ import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import controller.login.Login;
+
 
 
 public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
@@ -39,6 +41,7 @@ public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
 							byte[] bytes = new byte[1000];
 							inputStream.read(bytes);
 							String msg = new String(bytes);
+							
 							// * 서버가 받은 메세지를 현재 서버에 접속한 모든 클라이언트에게 받은 메세지 보내기
 							for(Client client : clientlist) {
 								client.send(msg); // 받은 메세지를 서버에 접속된 클라이언트들에게 보내기
@@ -59,7 +62,10 @@ public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
 					try{
 						OutputStream outputStream =socket.getOutputStream();
 						outputStream.write(msg.getBytes() ); 
-					} catch(Exception e) {System.out.println("송신 메소드 오류 : "+ e);}
+					} catch(Exception e) {
+						serverstop();
+						System.out.println("송신 메소드 오류 : "+ e);
+						}
 				}
 			}; // 멀티스레드 구현 끝
 			threadpool.submit(runnable);
@@ -88,7 +94,7 @@ public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
         	// 2. 서버소켓 바인딩
         	serverSocket.bind(new InetSocketAddress(ip,port));
         	
-    	} catch(Exception e) {System.out.println("서버 실행 메소드 오류 : "+ e);}
+    	} catch(Exception e) {serverstop(); System.out.println("서버 실행 메소드 오류 : "+ e);}
     		// 3. 클라이언트의 요청 대기 [멀티스레드 사용하는 이유 : 1.클라이언트연결 2.보내기 3.받기 동시처리하기 위해서]
     	Runnable runnable = new Runnable() {
 			@Override
@@ -98,7 +104,7 @@ public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
 						Socket socket = serverSocket.accept(); // 1. 요청 수락후에 수락된 소켓을 저장
 						clientlist.add(new Client(socket)); // 2. 연결될 클라이언트(연결된소켓) 생성 후에 리스트에 클라이언트 추가
 					}	
-				} catch(Exception e) {System.out.println("서버가 클라이언트 연결 오류 : "+ e);}
+				} catch(Exception e) {serverstop(); System.out.println("서버가 클라이언트 연결 오류 : "+ e);}
 				
 				
 			}
@@ -119,7 +125,7 @@ public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
         	serverSocket.close();
         	// 3. 스레드풀 닫기
         	threadpool.shutdown();
-    	} catch(Exception e) {System.out.println("서버 종료 메소드 오류 : "+ e);}
+    	} catch(Exception e) { System.out.println("서버 종료 메소드 오류 : "+ e);}
     	
     }
 	

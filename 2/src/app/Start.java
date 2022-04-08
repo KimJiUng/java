@@ -1,5 +1,8 @@
 package app;
 
+import controller.Chatting;
+import controller.login.Login;
+import dao.RoomDao;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,6 +36,21 @@ public class Start extends Application {
 			Font.loadFont(getClass().getResourceAsStream("해남체.ttf"), 14);
 			// 2. 외부 스타일시트 적용
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		// * stage = 윈도우창에 x버튼 눌렀을때 이벤트
+		stage.setOnCloseRequest(e ->{
+			// 만약에 로그인이 되어있으면
+			if(Login.member!=null) {
+				if(Chatting.room != null) {
+					// 1. 방 접속명단 삭제
+					RoomDao.roomDao.roomlivedelete(Login.member.getMid());
+					// 2. 방 삭제
+					RoomDao.roomDao.roomdelete(Chatting.room.getRoomnum());
+				}
+				// 3. 선택 방 초기화
+				Chatting.room = null;
+			}
+		});
 		
 		stage.setResizable(false); // 4. 스테이지 크기 변경 불가
 		stage.setTitle("이젠마켓"); // 2. 스테이지 창 이름

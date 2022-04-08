@@ -18,7 +18,10 @@ public class Loginpane implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		txtid.requestFocus();
+		
 		lblconfirm.setText(""); // 처음 실행시 문구 숨기기
+		
 	}
 	
     @FXML

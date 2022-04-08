@@ -8,7 +8,12 @@ public class Room {
 	private int mcount; // 현재 방 인원수 [db에는 없는 필드]
 	
 	public Room() {}
-
+	
+	public Room(int roomnum, int mcount) {
+		this.mcount = mcount;
+		this.roomnum = roomnum;
+	}
+	
 	public Room(int roomnum, String roomname, String roomip, int mcount) {
 		this.roomnum = roomnum;
 		this.roomname = roomname;
