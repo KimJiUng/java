@@ -20,6 +20,7 @@ public class Day13_2 { // c s
 			// SimpleDateFormat 클래스 : 날짜/시간 포맷(형식=모양) 변환 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 hh시 mm분 ss초");
 			// 날짜에 형식 적용하기 [ 날짜형식 -> String형식으로 변환
+		
 		System.out.println("날짜형식변경 : "+sdf.format(date));
 										// 형식객체.format(날짜객체)
 		

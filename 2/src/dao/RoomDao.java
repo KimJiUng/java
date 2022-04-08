@@ -17,7 +17,6 @@ public class RoomDao {
 	private PreparedStatement ps;
 	private ResultSet rs;
 	
-	public static ArrayList<Room> mcountlist = new ArrayList<>();
 	
 	public static RoomDao roomDao = new RoomDao();
 	
@@ -69,10 +68,20 @@ public class RoomDao {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()) {
+				String sql2 = "select * from roomlive where roomnum=?";
+				PreparedStatement ps2;
+				ResultSet rs2;
+				ps2 = con.prepareStatement(sql2);
+				ps2.setInt(1, rs.getInt(1));
+				rs2 = ps2.executeQuery();
+				int i=0;
+				while(rs2.next()) {
+					i++;
+				}
 				Room room = new Room(rs.getInt(1), 
 						rs.getString(2), 
 						rs.getString(3), 
-						0);
+						i);
 				roomlist.add(room);
 			}
 			return roomlist;
@@ -105,15 +114,10 @@ public class RoomDao {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, roomnum);
 			rs = ps.executeQuery();
-			int i=0;
 			while(rs.next()) {
-				
 				Roomlive roomlive = new Roomlive(rs.getInt(1), rs.getInt(2), rs.getString(3));
 				roomlivelist.add(roomlive);
-				i++;
 			}
-			Room room = new Room(roomnum, i);
-			mcountlist.add(room);
 			return roomlivelist;
 		} catch(Exception e) {
 			System.out.println("채팅방 명단 호출 메소드 오류 : "+e);

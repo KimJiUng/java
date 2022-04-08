@@ -182,7 +182,7 @@ public class Chatting implements Initializable {
     		Roomlive roomlive = new Roomlive(0, room.getRoomnum(), Login.member.getMid());
     		RoomDao.roomDao.addroomlive(roomlive);
     		midshow();
-    		
+    		show();
     		txtroomname.setDisable(true); // 채팅방이름 입력창 사용금지
     		btnadd.setDisable(true); // 채팅방 개설 버튼 사용금지
     		roomtable.setDisable(true); // 채팅방 목록 사용금지
@@ -255,24 +255,8 @@ public class Chatting implements Initializable {
 	
     public void show() {
     	
-    	ObservableList<Room> r = RoomDao.roomDao.roomlist();
-    	ObservableList<Room> roomlist = FXCollections.observableArrayList();
-		for(int i=0; i<r.size(); i++) {
-			if(RoomDao.mcountlist!=null) {
-				roomlist.add(RoomDao.roomDao.roomlist().get(i));
-			}else {
-				for(int j=0; j<RoomDao.mcountlist.size(); j++) {
-					 if(r.get(i).getRoomnum()==RoomDao.mcountlist.get(j).getRoomnum()) {
-						 Room ro = new Room(r.get(i).getRoomnum(), r.get(i).getRoomname(), r.get(i).getRoomip(), RoomDao.mcountlist.get(j).getMcount());
-						 roomlist.add(ro);
-					 }
-					 else  {
-						roomlist.add(RoomDao.roomDao.roomlist().get(i));
-					}
-				 }
-			}
-			 
-		}
+    	ObservableList<Room> roomlist = RoomDao.roomDao.roomlist();
+
 		
 		TableColumn tc = roomtable.getColumns().get(0);
 		tc.setCellValueFactory(new PropertyValueFactory<>("roomnum"));

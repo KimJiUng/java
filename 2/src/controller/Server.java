@@ -77,7 +77,7 @@ public class Server { // fxml 사용하지 않는 클래스 [서버 컨트롤 사용]
 
     
     // * 서버에 연결된 클라이언트를 저장하는 리스트
-    public Vector<Client> clientlist = new Vector<>();
+    public static Vector<Client> clientlist = new Vector<>();
     		// Vector 사용하는 이유 : 동기화o 
     			// 동기화 : 여러개의 스레드가 하나의 메소드에 접근할 경우 대기 상태 만들어줌
     // * 멀티스레드를 관리해주는 스레드풀
