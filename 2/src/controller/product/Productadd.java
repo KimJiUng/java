@@ -150,7 +150,7 @@ public class Productadd implements Initializable {
             		}
             		if(opt2.isSelected()) {pcategory="여성의류";}
             		if(opt3.isSelected()) {pcategory="생활용품";}
-            		if(opt4.isSelected()) {pcategory="전자제품";}
+            		if(opt4.isSelected()) {pcategory="가전제품";}
             	int mnum = Login.member.getMnum();
             	// 2. (유효성검사)
             	if(pname.length()<1) {
@@ -208,7 +208,7 @@ public class Productadd implements Initializable {
             		}
             		if(opt2.isSelected()) {pcategory="여성의류";}
             		if(opt3.isSelected()) {pcategory="생활용품";}
-            		if(opt4.isSelected()) {pcategory="전자제품";}
+            		if(opt4.isSelected()) {pcategory="가전제품";}
             	int mnum = Login.member.getMnum();
             	// 2. (유효성검사)
             	if(pname.length()<1) {
