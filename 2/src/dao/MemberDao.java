@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import controller.login.Login;
 import dto.Member;
@@ -309,5 +311,40 @@ public class MemberDao { // DB 접근객체
 		return null;
 	}
 	
+	// 10. 전체 회원수 반환
+	public int membertotal() {
+		try {
+			String sql = "select count(*) from member"; 
+							// count(*) : 모든 레코드 수(공백포함)
+							// count(필드명) : 모든 레코드 수(공백미포함)
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch(Exception e) {
+			System.out.println("전체 회원수 반환 오류 : "+e);
+		}
+		return 0;
+	}
+	
+	// 11. 날짜별 회원가입 수 반환
+	public Map<String, Integer> total(String a, String table) {
+		try {
+			Map<String , Integer> map = new HashMap<>();
+			String sql = "select "+a+", count(*) from "+table+" group by "+a;
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getString(1), rs.getInt(2));
+			}
+			return map;
+		} catch(Exception e) {
+			System.out.println("날짜별 회원가입수 반환 오류 : "+e);
+		}
+		return null;
+	}
+	
+
 
 }

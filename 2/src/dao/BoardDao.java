@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import controller.board.Boardcontroller;
 import controller.login.Login;
@@ -188,6 +190,25 @@ public class BoardDao {
 		} catch(Exception e) {
 			System.out.println("알림)) 파일 로드 실패(관리자에게 문의)");
 		}
+	}
+	
+	// 6. 날짜별 게시물 수 반환
+	public Map<String, Integer> datetotal(String table){
+		try {
+			Map<String, Integer> map = new HashMap<>();
+			String sql = "SELECT substring_index("+table.charAt(0)+"date,' ',1), "
+					+ "count(*) FROM "+table+" group by "
+					+ "substring_index("+table.charAt(0)+"date,' ',1) ";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getString(1), rs.getInt(2));
+			}
+			return map;
+		}catch(Exception e) {
+			System.out.println("날짜별 게시물 수 반환 오류 : "+ e);
+		}
+		return null;
 	}
 
 	
