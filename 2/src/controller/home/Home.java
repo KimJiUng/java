@@ -163,4 +163,12 @@ public class Home implements Initializable {
 		loadpage("/view/chatting.fxml");
 	}
 	
+	@FXML
+	private Label lblrecord;
+	
+	@FXML
+	public void accrecord(MouseEvent e) {
+		loadpage("/view/record.fxml");
+	}
+	
 }
