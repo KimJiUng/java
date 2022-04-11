@@ -9,6 +9,11 @@ public class Room {
 	
 	public Room() {}
 	
+	public Room(int roomnum, int mcount) {
+		this.mcount = mcount;
+		this.roomnum = roomnum;
+	}
+	
 	public Room(int roomnum, String roomname, String roomip, int mcount) {
 		this.roomnum = roomnum;
 		this.roomname = roomname;
