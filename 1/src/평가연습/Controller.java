@@ -63,19 +63,21 @@ public class Controller {
 				
 				
 				Date d1 = sdf.parse(temp.getIntime());
-				Date d2 = date;
-				String dateend = hm.format(d2);
+				Date d2 = date; // 현재시간 
+				String dateend = hm.format(d2); // 출차시간 출력용 변환
 				long diff = d2.getTime() - d1.getTime();
 				long min = diff/(1000*60);
-				long day = diff/(1000*60*60*24);
-
 				
+
+				System.out.println(min);
 				long min1 = (long)Math.ceil(min/10.0) *10;
-				int fee = (int)((day*144000)+(min1*100 -3000));
+				min = (min1*100 -3000);
 				if(min<=30) {
-					fee=0;
+					min=0;
 				}
 				System.out.println(min);
+				int fee = (int)min;
+				
 				carlist.get(i).setOuttime(dateend);
 				carlist.get(i).setPay(decimalFormat.format(fee));
 			
